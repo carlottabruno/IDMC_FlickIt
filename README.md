@@ -1,4 +1,5 @@
-# IDCM - Identity, Determination, Mind, Community
+# FlickIt
+## IDCM - Identity, Determination, Mind, Community
 
 ## Gioco Riabilitativo per Pazienti con SLA
 
