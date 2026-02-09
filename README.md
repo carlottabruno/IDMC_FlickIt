@@ -3,8 +3,6 @@
 
 ## Gioco Riabilitativo per Pazienti con SLA
 
-## Introduzione
-
 Questo progetto consiste nella **creazione di un videogioco riabilitativo pensato per persone affette da SLA (Sclerosi Laterale Amiotrofica)**.
 
 L’obiettivo principale del gioco è **favorire la riabilitazione motoria e cognitiva**, aiutando i pazienti a mantenere attivi sia il movimento della mano sia le capacità mentali, attraverso un’esperienza ludica semplice, accessibile e progressiva.
