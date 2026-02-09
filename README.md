@@ -1,4 +1,6 @@
-# Gioco Riabilitativo per Pazienti con SLA
+# IDCM - Identity, Determination, Mind, Community
+
+## Gioco Riabilitativo per Pazienti con SLA
 
 ## Introduzione
 
@@ -43,7 +45,7 @@ La **chiusura della mano** viene interpretata come un **click**, permettendo all
 
 ---
 
-## Gioco 1: Memory matematico
+## Gioco: Memory matematico
 
 Il primo gioco è una versione riabilitativa del classico **gioco del memory con carte**.
 
@@ -55,11 +57,19 @@ Il primo gioco è una versione riabilitativa del classico **gioco del memory con
 * Le coppie corrette restano scoperte
 * Il gioco termina quando tutte le coppie sono state abbinate
 
+* Sullo schermo sono presenti dei **buchi** intorno al tavolo rappresentato
+* La talpa esce casualmente dai buchi
+* L’utente deve colpire la talpa utilizzando la mano
+* Quando il cursore è sopra la talpa e la mano si chiude, la talpa viene colpita
+
 Questo gioco permette di allenare:
 
 * Memoria visiva
 * Capacità di calcolo
 * Coordinazione mano-occhio
+* Prontezza di riflessi
+* Coordinazione
+* Controllo del movimento
 
 ### Livelli del memory
 
@@ -72,35 +82,6 @@ Questo gioco permette di allenare:
 * L’utente sposta la mano sopra una carta
 * Un cursore indica quando la mano è sopra una carta selezionabile
 * Chiudendo la mano, la carta viene girata
-
----
-
-## Gioco 2: Colpisci la talpa
-
-Il secondo gioco è ispirato al classico gioco della **talpa**.
-
-### Descrizione
-
-* Sullo schermo sono presenti dei **buchi**
-* La talpa esce casualmente dai buchi
-* L’utente deve colpire la talpa utilizzando la mano
-* Quando il cursore è sopra la talpa e la mano si chiude, la talpa viene colpita
-
-Questo gioco aiuta a migliorare:
-
-* Prontezza di riflessi
-* Coordinazione
-* Controllo del movimento
-
-### Livelli del gioco della talpa
-
-* **Livello 1**: 5 buchi, velocità lenta, obiettivo 10 punti
-* **Livello 2**: 10 buchi, velocità media, obiettivo 15 punti
-* **Livello 3**: 15 buchi, velocità veloce, obiettivo 20 punti
-
-Il gioco termina quando viene raggiunto il punteggio richiesto per il livello.
-
----
 
 ## Stato del progetto
 
