@@ -104,9 +104,9 @@ header {
     transition: opacity 1.5s ease-in-out;
 }
 
-.slide1 { background-image: url('img/img1.png'); }
-.slide2 { background-image: url('img/img3.jpg'); }
-.slide3 { background-image: url('img/img2.png'); }
+.slide1 { background-image: url('./img/img1.png'); }
+.slide2 { background-image: url('./img/img3.jpg'); }
+.slide3 { background-image: url('./img/img2.png'); }
 
 .slide:nth-child(1) { animation: showSlide1 15s infinite; }
 .slide:nth-child(2) { animation: showSlide2 15s infinite; }
