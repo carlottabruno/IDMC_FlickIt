@@ -1,10 +1,16 @@
 class Carta {
-  constructor(x, y, img,val) {
+  constructor(x, y, img, val,next) {
     this.x = x;
     this.y = y;
     this.imgShow = img;
-    this.val=val;
-    this.trovata=false;
+    this.img=img;
+    this.val = val;
+    this.trovata = false;
+    this.alpha = 255;       // opacità attuale
+    this.daRimuovere = false; // se deve iniziare a sparire
+    this.pauseTimer = 0;  
+    this.next=next ;
+    this.girata=false;  // conta i frame prima di iniziare la sfumatura
   }
 
   isMouseOver() {
@@ -16,9 +22,29 @@ class Carta {
     );
   }
 
-  flip(nuovaImg) {
-    this.imgShow = nuovaImg;
+ flip() {
+  if (!this.girata) {
+    this.imgShow = this.next; // gira la carta
+    this.girata = true;       // segna come girata
+  } else {
+    this.imgShow = this.img;  // rigira sul retro se vuoi
+    this.girata = false;
   }
-
- 
 }
+
+  fadeOut() {
+    if (this.pauseTimer > 0) {
+      this.pauseTimer--; // aspetta
+      return;
+    }
+
+    if (this.alpha > 0) {
+      this.alpha -= 10; // diminuisci alpha più lentamente
+      if (this.alpha < 0) this.alpha = 0;
+    } else {
+      this.trovata = true;
+      this.daRimuovere = false;
+    }
+  }
+}
+
