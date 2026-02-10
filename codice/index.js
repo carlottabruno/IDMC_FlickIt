@@ -16,10 +16,13 @@ let imgc3;
 let imgc4;
 let imgc5;
 let imgc6;
+let start;
 let primaCarta = null;
 let secondaCarta = null;
 let bloccaClick = false;
-let punteggio =0;
+let punteggio = 0;
+let schema = 0;
+
 
 
 function preload() {
@@ -32,6 +35,7 @@ function preload() {
   imgc4=loadImage('./img/carta4.png');
   imgc5=loadImage('./img/carta5.png');
   imgc6=loadImage('./img/carta6.png');
+  start=loadImage('./img/start.jpg');
 }
 
 function setup() {
@@ -57,9 +61,11 @@ function setup() {
   carta8=new Carta(1100,500,imgC,2,imgF);
   carte.push(carta8);
 
+
 }
 
 function draw() {
+  if(schema===1){
   background(back);
 
   for (let n of carte) {
@@ -79,6 +85,9 @@ function draw() {
   text("Punteggio: " + punteggio, 50, 50);
   noTint();
 }
+if(schema===0){
+  background(start);
+}}
 
 function controllaMatch() {
   if (primaCarta.val === secondaCarta.val) {
@@ -106,6 +115,7 @@ function controllaMatch() {
     }, 1000);
   }
 }
+  
 
 
 
@@ -117,7 +127,6 @@ function resetScelte() {
 
 function mouseClicked() {
   if (bloccaClick) return;
-
   for (let n of carte) {
     if (n.isMouseOver() && !n.trovata && !n.girata  && n !== primaCarta && n.imgShow === imgC) {
       n.flip(imgF);
@@ -131,6 +140,14 @@ function mouseClicked() {
       }
       break;
     }
+  }
+  if(schema===0){
+    schema++;
+  } 
+}
+function keyPressed(){
+  if( schema===0 && key== " "){
+    schema++;
   }
 }
 
