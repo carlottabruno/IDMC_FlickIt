@@ -1,0 +1,452 @@
+/* ==========================================================================
+   RESET e BASE
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fc;
+    color: #2d3748;
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   HEADER / NAVBAR – FlickIt in arancione in alto a sinistra
+   ========================================================================== */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    background: rgba(30, 58, 138, 0.93);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem 1rem 1rem 10px;          /* molto vicino al bordo sinistro */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: -8px;
+}
+
+.logo-img {
+    height: 44px;
+    width: auto;
+}
+
+.logo-img:hover {
+    transform: scale(1.08);
+    transition: transform 0.25s ease;
+}
+
+.logo-text {
+    color: #ff9800;                     /* ARANCIONE in alto a sinistra */
+    font-size: 1.95rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2.4rem;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.05rem;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover,
+.nav-links a:focus {
+    color: #ff9800;
+}
+
+/* ==========================================================================
+   HERO SLIDER + OVERLAY
+   ========================================================================== */
+.hero-slider {
+    position: relative;
+    height: 100vh;
+    min-height: 680px;
+    overflow: hidden;
+}
+
+.slides-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.slide {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+}
+
+.slide1 { background-image: url('img/img1.png'); }
+.slide2 { background-image: url('img/img3.jpg'); }
+.slide3 { background-image: url('img/img2.png'); }
+
+.slide:nth-child(1) { animation: showSlide1 15s infinite; }
+.slide:nth-child(2) { animation: showSlide2 15s infinite; }
+.slide:nth-child(3) { animation: showSlide3 15s infinite; }
+
+@keyframes showSlide1 {
+    0%    { opacity: 1; z-index: 5; }
+    28%   { opacity: 1; z-index: 5; }
+    33%   { opacity: 0; z-index: 1; }
+    100%  { opacity: 0; z-index: 1; }
+}
+
+@keyframes showSlide2 {
+    0%      { opacity: 0; z-index: 1; }
+    33%     { opacity: 0; z-index: 1; }
+    33.1%   { opacity: 1; z-index: 5; }
+    61%     { opacity: 1; z-index: 5; }
+    66%     { opacity: 0; z-index: 1; }
+    100%    { opacity: 0; z-index: 1; }
+}
+
+@keyframes showSlide3 {
+    0%      { opacity: 0; z-index: 1; }
+    66%     { opacity: 0; z-index: 1; }
+    66.1%   { opacity: 1; z-index: 5; }
+    94%     { opacity: 1; z-index: 5; }
+    99%     { opacity: 0; z-index: 1; }
+    100%    { opacity: 0; z-index: 1; }
+}
+
+.slider-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.15) 0%,
+        rgba(0, 0, 0, 0.48) 50%,
+        rgba(0, 0, 0, 0.70) 100%
+    );
+    pointer-events: none;
+    z-index: 6;
+}
+
+.dots {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 16px;
+    z-index: 20;
+}
+
+.dot {
+    width: 14px;
+    height: 14px;
+    background: rgba(255, 255, 255, 0.55);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot:hover {
+    background: white;
+    transform: scale(1.4);
+}
+
+/* ==========================================================================
+   TESTO CENTRALE – FlickIt arancione anche qui
+   ========================================================================== */
+.hero-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 10;
+    padding: 0 2.5rem;
+    max-width: 92%;
+    text-shadow: 0 4px 12px rgba(0,0,0,0.85);
+}
+
+.hero-text h1 {
+    color: #ff9800;                     /* ARANCIONE */
+    font-size: 7.4rem;
+    font-weight: 800;
+    margin-bottom: 1.4rem;
+    letter-spacing: -3.2px;
+    line-height: 0.88;
+}
+
+.hero-text p {
+    color: white;
+    font-size: 1.85rem;
+    max-width: 840px;
+    margin: 0 auto;
+    font-weight: 400;
+}
+
+/* ==========================================================================
+   SEZIONE INTRO
+   ========================================================================== */
+.intro-text {
+    padding: 11rem 2rem 8rem;
+    background: white;
+    text-align: center;
+}
+
+.content-wrapper {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.intro-text h2 {
+    font-size: 3.5rem;
+    color: #1e40af;
+    margin-bottom: 2.4rem;
+}
+
+.intro-text p {
+    font-size: 1.32rem;
+    margin-bottom: 1.8rem;
+    color: #4b5563;
+    max-width: 820px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 1024px) {
+    .hero-text h1 { font-size: 6.2rem; }
+    .hero-text p  { font-size: 1.65rem; }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0.9rem 0.8rem 0.9rem 8px;
+    }
+    .logo-nav {
+        margin-left: -6px;
+        gap: 8px;
+    }
+    .logo-img { height: 38px; }
+    .logo-text { font-size: 1.7rem; }
+    .nav-links { gap: 1.5rem; }
+    .nav-links a { font-size: 0.98rem; }
+    
+    .hero-text h1 { font-size: 5.2rem; }
+    .hero-text p  { font-size: 1.5rem; }
+    
+    .intro-text { padding: 9rem 1.5rem 6rem; }
+    .intro-text h2 { font-size: 2.9rem; }
+}
+
+@media (max-width: 480px) {
+    .hero-text h1 { font-size: 4rem; }
+    .hero-text p { font-size: 1.35rem; }
+    .dots { bottom: 25px; }
+    .dot { width: 12px; height: 12px; }
+    
+    .logo-nav { margin-left: -4px; }
+    .logo-text { font-size: 1.55rem; }
+}
+
+
+/* ==========================================================================
+   PAGINE INTERNE (chi siamo, contatti, ecc.)
+   ========================================================================== */
+.page-main {
+    padding-top: 120px;           /* spazio sotto navbar fissa */
+    min-height: calc(100vh - 180px);
+}
+
+.chisiamo {
+    padding: 4rem 2rem 6rem;
+    background: #ffffff;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.chisiamo h1 {
+    font-size: 3.5rem;
+    color: #1e40af;
+    text-align: center;
+    margin-bottom: 3rem;
+    font-weight: 700;
+}
+
+.testo-gruppo {
+    font-size: 1.28rem;
+    line-height: 1.8;
+    color: #333;
+    max-width: 880px;
+    margin: 0 auto;
+}
+
+.testo-gruppo p {
+    margin-bottom: 1.8rem;
+}
+
+/* Footer (se non lo avevi già) */
+footer {
+    background: #1e3a8a;
+    color: white;
+    text-align: center;
+    padding: 2.5rem 1rem;
+    margin-top: 4rem;
+}
+
+.footer-content p {
+    margin: 0.6rem 0;
+    font-size: 1.05rem;
+}
+
+.footer-content p:first-child {
+    font-weight: 600;
+}
+
+/* Responsive per la pagina chi siamo */
+@media (max-width: 768px) {
+    .chisiamo h1 {
+        font-size: 2.8rem;
+    }
+    .testo-gruppo {
+        font-size: 1.18rem;
+    }
+    .page-main {
+        padding-top: 100px;
+    }
+}
+
+/* ==========================================================================
+   PAGINE INTERNE – Cos'è la SLA
+   ========================================================================== */
+.page-main {
+    padding-top: 120px;
+    min-height: calc(100vh - 180px);
+}
+
+.chisiamo {
+    padding: 5rem 2rem 7rem;
+    background: #ffffff;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.chisiamo h1 {
+    font-size: 3.6rem;
+    color: #1e40af;
+    text-align: center;
+    margin-bottom: 3.2rem;
+    font-weight: 700;
+}
+
+.testo-malattia {
+    font-size: 1.3rem;
+    line-height: 1.85;
+    color: #333;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.testo-malattia p {
+    margin-bottom: 2rem;
+    text-align: justify;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .chisiamo h1 {
+        font-size: 2.9rem;
+    }
+    .testo-malattia {
+        font-size: 1.2rem;
+    }
+    .page-main {
+        padding-top: 100px;
+    }
+}
+
+/* Stile per rendere il testo più dinamico e leggibile */
+.testo-malattia {
+    font-size: 1.28rem;
+    line-height: 1.9;
+    color: #2d3748;
+    max-width: 920px;
+    margin: 0 auto 3rem;
+}
+
+.testo-malattia p {
+    margin-bottom: 1.6rem;
+}
+
+.testo-malattia strong {
+    color: #1e40af;
+    font-weight: 600;
+}
+
+.sintomi-list,
+.terapie-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 1.8rem 0;
+}
+
+.sintomi-list li,
+.terapie-list li {
+    position: relative;
+    padding-left: 2.2rem;
+    margin-bottom: 1rem;
+    font-size: 1.15rem;
+}
+
+.sintomi-list li::before,
+.terapie-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #ff9800;
+    font-size: 1.8rem;
+    line-height: 1;
+}
+
+.nota-finale {
+    font-size: 1.38rem;
+    font-weight: 500;
+    color: #1e40af;
+    text-align: center;
+    max-width: 820px;
+    margin: 3rem auto 0;
+    padding: 2rem;
+    background: rgba(255, 152, 0, 0.06);
+    border-left: 5px solid #ff9800;
+    border-radius: 8px;
+}
