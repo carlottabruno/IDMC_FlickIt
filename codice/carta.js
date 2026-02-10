@@ -4,6 +4,7 @@ class Carta {
     this.y = y;
     this.imgShow = img;
     this.val=val;
+    this.trovata=false;
   }
 
   isMouseOver() {
@@ -18,4 +19,6 @@ class Carta {
   flip(nuovaImg) {
     this.imgShow = nuovaImg;
   }
+
+ 
 }
