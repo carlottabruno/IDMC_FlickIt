@@ -26,6 +26,9 @@ let schema = 0;
 let talpa = null;
 let imgTalpa;
 let imgTalpaHit;
+let coriandoli = [];
+let numCoriandoli = 150; // puoi aumentare o diminuire
+
 
 
 function preload() {
@@ -97,7 +100,29 @@ function draw() {
 }
 if(schema===0){
   background(start);
-}}
+}
+if(schema === 2){
+  background(0);
+
+  // aggiorna e mostra coriandoli
+  for (let c of coriandoli) {
+    c.update();
+    c.show();
+  }
+
+  fill(255);
+  textAlign(CENTER, CENTER);
+
+  textSize(80);
+  text("HAI VINTO!", width/2, height/2 - 100);
+
+  textSize(40);
+  text("Punteggio finale: " + punteggio, width/2, height/2);
+
+ 
+}
+
+}
 
 function controllaMatch() {
 
@@ -115,6 +140,7 @@ function controllaMatch() {
 
     setTimeout(() => {
       resetScelte();
+      controllaVittoria();
     }, 1000);
 
   } else {
@@ -129,11 +155,32 @@ function controllaMatch() {
 }
 
 
+
 function resetScelte() {
   primaCarta = null;
   secondaCarta = null;
   bloccaClick = false;
 }
+function controllaVittoria() {
+  let tutteTrovate = true;
+
+  for (let n of carte) {
+    if (!n.trovata) {
+      tutteTrovate = false;
+      break;
+    }
+  }
+if (tutteTrovate) {
+  schema = 2; // schermata finale
+  // inizializza coriandoli
+  coriandoli = [];
+  for (let i = 0; i < numCoriandoli; i++) {
+    coriandoli.push(new Coriandolo());
+  }
+}
+
+}
+
 
 function mouseClicked() {
 
