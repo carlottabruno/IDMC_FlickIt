@@ -159,7 +159,7 @@ function controllaMatch() {
     setTimeout(() => {
       resetScelte();
       controllaVittoria();
-    }, 1000);
+    }, 2000);
 
   } else {
 
@@ -167,7 +167,7 @@ function controllaMatch() {
       primaCarta.flip();
       secondaCarta.flip();
       resetScelte();
-    }, 1000);
+    }, 2000);
 
   }
 }
