@@ -13,14 +13,11 @@ class Carta {
     this.girata=false;  // conta i frame prima di iniziare la sfumatura
   }
 
-  isMouseOver() {
-    return (
-      mouseX > this.x &&
-      mouseX < this.x + this.imgShow.width &&
-      mouseY > this.y &&
-      mouseY < this.y + this.imgShow.height
-    );
-  }
+  isMouseOver(px = mouseX, py = mouseY) {
+  return px > this.x && px < this.x + this.imgShow.width &&
+         py > this.y && py < this.y + this.imgShow.height;
+}
+
 
  flip() {
   if (!this.girata) {
