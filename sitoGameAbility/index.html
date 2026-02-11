@@ -7,44 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css.css">   <!-- <-- usa il css unificato che ti ho dato prima -->
-    <style>
-        /* Stili aggiuntivi SOLO per lo slider con frecce */
-        .slider-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 60px;
-            height: 60px;
-            background: rgba(0, 0, 0, 0.35);
-            color: white;
-            font-size: 2.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            border-radius: 50%;
-            z-index: 5;
-            transition: all 0.3s ease;
-            user-select: none;
-        }
-        .slider-arrow:hover {
-            background: rgba(255, 152, 0, 0.75);
-            transform: translateY(-50%) scale(1.15);
-        }
-        .slider-arrow.prev { left: 25px; }
-        .slider-arrow.next { right: 25px; }
-
-        @media (max-width: 768px) {
-            .slider-arrow {
-                width: 50px;
-                height: 50px;
-                font-size: 1.8rem;
-            }
-            .slider-arrow.prev { left: 12px; }
-            .slider-arrow.next { right: 12px; }
-        }
-    </style>
+    <link rel="stylesheet" href="css.css">
 </head>
 <body>
 
@@ -69,7 +32,6 @@
             <div class="slide" style="background-image: url('img/tavolo.png');"></div>
             <div class="slide" style="background-image: url('img/itis_copia.jpg');"></div>
             <div class="slide" style="background-image: url('img/cervello.webp');"></div>
-            <!-- Puoi aggiungerne altre se vuoi -->
         </div>
 
         <div class="hero-overlay"></div>
@@ -77,17 +39,15 @@
         <div class="hero-content">
             <h1>FlickIt</h1>
             <p class="lead">Un memory game per allenare<br>coordinazione e attenzione</p>
-            <p class="subtitle">Progettato pensando alle persone con Sclerosi Multipla e SLA</p>
+            <p class="subtitle">Progettato pensando alle persone con Sclerosi Multipla</p>
             <div class="hero-cta">
                 <a href="#come-gioca" class="btn btn-primary">Scopri come funziona</a>
             </div>
         </div>
 
-        <!-- FRECCE -->
         <div class="slider-arrow prev" id="prevSlide">←</div>
         <div class="slider-arrow next" id="nextSlide">→</div>
 
-        <!-- Dots (già presenti, li teniamo) -->
         <div class="slider-controls">
             <span class="dot active" data-slide="0"></span>
             <span class="dot" data-slide="1"></span>
@@ -95,7 +55,6 @@
         </div>
     </section>
 
-    <!-- resto della pagina invariato -->
     <section class="section intro" id="come-gioca">
         <div class="container">
             <div class="grid-2">
@@ -119,22 +78,22 @@
                 <div class="feature-card">
                     <div class="feature-icon">⭐</div>
                     <h3>Identity</h3>
-                    <p>Rappresenta l’unicità di ogni giocatore: il gioco si adatta alle capacità individuali, permettendo a ogni persona con SLA di sentirsi protagonista del proprio percorso di allenamento e miglioramento.</p>
+                    <p>Rappresenta l’unicità di ogni giocatore: il gioco si adatta alle capacità individuali...</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">🎯</div>
                     <h3>Determination</h3>
-                    <p>Indica la forza e la perseveranza nel superare le difficoltà quotidiane: ogni livello completato e ogni movimento allenato rappresentano piccoli traguardi verso maggiore autonomia e fiducia.</p>
+                    <p>Indica la forza e la perseveranza nel superare le difficoltà quotidiane...</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">🧠</div>
                     <h3>Mind</h3>
-                    <p>Rappresenta l’allenamento mentale e la concentrazione: attraverso il memory game, i giocatori stimolano memoria, attenzione e coordinazione, trasformando l’esercizio in un’esperienza coinvolgente e stimolante.</p>
+                    <p>Rappresenta l’allenamento mentale e la concentrazione...</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">🌍</div>
                     <h3>Community</h3>
-                    <p>Simbolo di condivisione e supporto reciproco: il progetto nasce per creare uno spazio inclusivo dove i giocatori si sentono parte di una comunità che incoraggia, motiva e non lascia nessuno indietro.</p>
+                    <p>Simbolo di condivisione e supporto reciproco...</p>
                 </div>
             </div>
         </div>
@@ -149,7 +108,7 @@
 </footer>
 
 <script>
-// Script semplice per lo slider automatico + frecce + dots cliccabili
+// Slider script ( invariato )
 document.addEventListener('DOMContentLoaded', () => {
     const slider = document.getElementById('heroSlider');
     const slides = slider.querySelectorAll('.slide');
@@ -162,33 +121,25 @@ document.addEventListener('DOMContentLoaded', () => {
     let autoInterval;
 
     function showSlide(index) {
-        slides.forEach((s, i) => {
-            s.classList.toggle('active', i === index);
-        });
-        dots.forEach((d, i) => {
-            d.classList.toggle('active', i === index);
-        });
+        slides.forEach((s, i) => s.classList.toggle('active', i === index));
+        dots.forEach((d, i) => d.classList.toggle('active', i === index));
         current = index;
     }
 
     function nextSlide() {
-        let next = (current + 1) % total;
-        showSlide(next);
+        showSlide((current + 1) % total);
     }
 
     function prevSlide() {
-        let prev = (current - 1 + total) % total;
-        showSlide(prev);
+        showSlide((current - 1 + total) % total);
     }
 
-    // Auto slide ogni 5 secondi
     autoInterval = setInterval(nextSlide, 5000);
 
-    // Frecce
     nextBtn.addEventListener('click', () => {
         clearInterval(autoInterval);
         nextSlide();
-        autoInterval = setInterval(nextSlide, 5000); // riavvia timer
+        autoInterval = setInterval(nextSlide, 5000);
     });
 
     prevBtn.addEventListener('click', () => {
@@ -197,7 +148,6 @@ document.addEventListener('DOMContentLoaded', () => {
         autoInterval = setInterval(nextSlide, 5000);
     });
 
-    // Dots cliccabili
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
             clearInterval(autoInterval);
@@ -206,11 +156,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Pause on hover (opzionale ma utile per accessibilità)
     slider.addEventListener('mouseenter', () => clearInterval(autoInterval));
-    slider.addEventListener('mouseleave', () => {
-        autoInterval = setInterval(nextSlide, 5000);
-    });
+    slider.addEventListener('mouseleave', () => autoInterval = setInterval(nextSlide, 5000));
 });
 </script>
 
