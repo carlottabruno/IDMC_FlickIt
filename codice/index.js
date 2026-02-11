@@ -97,7 +97,22 @@ function draw() {
 }
 if(schema===0){
   background(start);
-}}
+}
+if(schema === 2){
+  background(0);
+
+  fill(255);
+  textAlign(CENTER, CENTER);
+
+  textSize(80);
+  text("HAI VINTO!", width/2, height/2 - 100);
+
+  textSize(40);
+  text("Punteggio finale: " + punteggio, width/2, height/2);
+
+  
+}
+}
 
 function controllaMatch() {
 
@@ -115,6 +130,7 @@ function controllaMatch() {
 
     setTimeout(() => {
       resetScelte();
+      controllaVittoria();
     }, 1000);
 
   } else {
@@ -129,11 +145,27 @@ function controllaMatch() {
 }
 
 
+
 function resetScelte() {
   primaCarta = null;
   secondaCarta = null;
   bloccaClick = false;
 }
+function controllaVittoria() {
+  let tutteTrovate = true;
+
+  for (let n of carte) {
+    if (!n.trovata) {
+      tutteTrovate = false;
+      break;
+    }
+  }
+
+  if (tutteTrovate) {
+    schema = 2; // vai alla schermata finale
+  }
+}
+
 
 function mouseClicked() {
 
