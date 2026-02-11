@@ -26,6 +26,11 @@ let schema = 0;
 let talpa = null;
 let imgTalpa;
 let imgTalpaHit;
+let coriandoli = [];
+let numCoriandoli = 150; 
+let livello = 1;  
+
+
 
 
 function preload() {
@@ -48,24 +53,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   frameRate(60);
 
-  carta=new Carta(500,200,imgC,7,imgc1);
-  carte.push(carta);
-  carta2=new Carta(700,200,imgC,10,imgc3);
-  carte.push(carta2);
-  carta3=new Carta(900,200,imgC,5,imgc5);
-  carte.push(carta3);
-  carta4=new Carta(1100,200,imgC,7,imgc2);
-  carte.push(carta4);
-
-  //seconda riga
-  carta5=new Carta(500,500,imgC,5,imgc6);
-  carte.push(carta5);
-  carta6=new Carta(700,500,imgC,10,imgc4);
-  carte.push(carta6);
-  carta7=new Carta(900,500,imgC,2,imgF);
-  carte.push(carta7);
-  carta8=new Carta(1100,500,imgC,2,imgF);
-  carte.push(carta8);
+   inizializzaCarte(livello);
   
 }
 
@@ -86,8 +74,9 @@ function draw() {
   }
 
   fill(255);
-  textSize(32);
+  textSize(42);
   text("Punteggio: " + punteggio, 50, 50);
+  text("Livello:  " + livello,800,50);
   noTint();
   if (talpa && talpa.visibile) {
   talpa.show();
@@ -97,7 +86,61 @@ function draw() {
 }
 if(schema===0){
   background(start);
-}}
+}
+if(schema === 2){
+  background(0);
+
+  // aggiorna e mostra coriandoli
+  for (let c of coriandoli) {
+    c.update();
+    c.show();
+  }
+
+  fill(255);
+  textAlign(CENTER, CENTER);
+
+  textSize(80);
+  text("HAI VINTO!", width/2, height/2 - 100);
+
+  textSize(40);
+  text("Punteggio finale: " + punteggio, width/2, height/2);
+
+ 
+}
+
+}
+function inizializzaCarte(livello) {
+  carte = [];
+
+  if (livello === 1) {
+    // livello 1: poche carte facili
+    carte.push(new Carta(500,200,imgC,7,imgc1));
+    carte.push(new Carta(700,200,imgC,7,imgc2));
+    carte.push(new Carta(500,450,imgC,5,imgc3));
+    carte.push(new Carta(700,450,imgC,5,imgc4));
+  } else if (livello === 2) {
+    // livello 2: più carte o valori diversi
+    carte.push(new Carta(400,150,imgC,2,imgc1));
+    carte.push(new Carta(600,150,imgC,2,imgc2));
+    carte.push(new Carta(800,150,imgC,8,imgc3));
+    carte.push(new Carta(1000,150,imgC,8,imgc4));
+    carte.push(new Carta(500,400,imgC,10,imgc5));
+    carte.push(new Carta(700,400,imgC,10,imgc6));
+  } else if (livello === 3) {
+    // livello 3: molte carte e valori più difficili
+    carte.push(new Carta(300,100,imgC,1,imgc1));
+    carte.push(new Carta(500,100,imgC,1,imgc2));
+    carte.push(new Carta(700,100,imgC,3,imgc3));
+    carte.push(new Carta(900,100,imgC,3,imgc4));
+    carte.push(new Carta(1100,100,imgC,5,imgc5));
+    carte.push(new Carta(400,350,imgC,5,imgc6));
+    carte.push(new Carta(600,350,imgC,7,imgc1));
+    carte.push(new Carta(800,350,imgC,7,imgc2));
+    carte.push(new Carta(1000,350,imgC,9,imgc3));
+    carte.push(new Carta(1200,350,imgC,9,imgc4));
+  }
+}
+
 
 function controllaMatch() {
 
@@ -115,6 +158,7 @@ function controllaMatch() {
 
     setTimeout(() => {
       resetScelte();
+      controllaVittoria();
     }, 1000);
 
   } else {
@@ -129,11 +173,41 @@ function controllaMatch() {
 }
 
 
+
 function resetScelte() {
   primaCarta = null;
   secondaCarta = null;
   bloccaClick = false;
 }
+function controllaVittoria() {
+  let tutteTrovate = true;
+
+  for (let n of carte) {
+    if (!n.trovata) {
+      tutteTrovate = false;
+      break;
+    }
+  }
+
+  if (tutteTrovate) {
+    if (livello < 3) {
+      livello++;       // passa al livello successivo
+      inizializzaCarte(livello); // crea nuove carte
+      primaCarta = null;
+      secondaCarta = null;
+      bloccaClick = false;
+    } else {
+      schema = 2; // fine gioco livello 3, schermata vittoria
+      // inizializza coriandoli
+      coriandoli = [];
+      for (let i = 0; i < numCoriandoli; i++) {
+        coriandoli.push(new Coriandolo());
+      }
+    }
+  }
+}
+
+
 
 function mouseClicked() {
 
