@@ -867,3 +867,189 @@ main.page-main {
     .school-content { font-size: 1.05rem; }
     .school-timeline .year { min-width: 90px; font-size: 0.95rem; }
 }
+
+/* ==========================================================================
+   PAGINA PROGETTO
+   ========================================================================== */
+
+.progetto-section {
+    padding: 10rem 0 8rem;
+}
+
+.progetto-subtitle {
+    font-size: 2.2rem;
+    color: #1e40af;
+    text-align: center;
+    margin: 1rem 0 2.5rem;
+    font-weight: 600;
+}
+
+.progetto-content {
+    max-width: 860px;
+    margin: 0 auto;
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #374151;
+}
+
+.progetto-content p {
+    margin-bottom: 1.8rem;
+}
+
+.progetto-features {
+    list-style: none;
+    padding: 0;
+    margin: 2.5rem 0;
+}
+
+.progetto-features li {
+    margin-bottom: 1.1rem;
+    padding-left: 1.8rem;
+    position: relative;
+}
+
+.progetto-features li::before {
+    content: "→";
+    color: #ff9800;
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.benefit-item {
+    background: #f0f7ff;
+    padding: 1.8rem 1.4rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    transition: transform 0.3s ease;
+}
+
+.benefit-item:hover {
+    transform: translateY(-6px);
+}
+
+.benefit-icon {
+    font-size: 3.2rem;
+    margin-bottom: 1rem;
+    color: #ff9800;
+}
+
+.progetto-conclusion {
+    font-size: 1.28rem;
+    font-weight: 500;
+    color: #1e40af;
+    text-align: center;
+    margin-top: 3.5rem;
+    padding: 2rem;
+    background: #f0f7ff;
+    border-radius: 16px;
+    border-left: 6px solid #ff9800;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .progetto-subtitle { font-size: 1.9rem; }
+    .progetto-content  { font-size: 1.08rem; }
+}
+
+/* ==========================================================================
+   BENEFICI IN CERCHIO (pagina Progetto)
+   ========================================================================== */
+
+.benefits-circles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2.5rem 3rem;
+    margin: 3rem 0;
+    padding: 1rem 0;
+}
+
+.benefit-circle {
+    width: 180px;
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    transition: all 0.35s ease;
+}
+
+.benefit-circle::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff980022 0%, #ff980044 100%);
+    border: 3px solid #ff9800;
+    z-index: -1;
+    transition: all 0.35s ease;
+}
+
+.benefit-circle:hover::before {
+    transform: scale(1.12);
+    box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
+}
+
+.circle-icon {
+    font-size: 4.2rem;
+    margin-bottom: 1rem;
+    color: #ff9800;
+    line-height: 1;
+}
+
+.benefit-circle p {
+    font-size: 1.05rem;
+    line-height: 1.4;
+    color: #1e40af;
+    font-weight: 500;
+    margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .benefits-circles {
+        gap: 2rem 2.5rem;
+    }
+    
+    .benefit-circle {
+        width: 160px;
+        height: 160px;
+    }
+    
+    .circle-icon {
+        font-size: 3.8rem;
+    }
+    
+    .benefit-circle p {
+        font-size: 0.98rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .benefits-circles {
+        flex-direction: column;
+        align-items: center;
+        gap: 2.8rem;
+    }
+    
+    .benefit-circle {
+        width: 200px;
+        height: 200px;
+    }
+    
+    .circle-icon {
+        font-size: 4.5rem;
+    }
+}
