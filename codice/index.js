@@ -22,7 +22,10 @@ let secondaCarta = null;
 let bloccaClick = false;
 let punteggio = 0;
 let schema = 0;
-
+//talpa
+let talpa = null;
+let imgTalpa;
+let imgTalpaHit;
 
 
 function preload() {
@@ -36,6 +39,9 @@ function preload() {
   imgc5=loadImage('./img/carta5.png');
   imgc6=loadImage('./img/carta6.png');
   start=loadImage('./img/start.jpg');
+  imgTalpa = loadImage('./img/images.jpeg');
+  imgTalpaHit = loadImage('./img/images1.jpeg');
+
 }
 
 function setup() {
@@ -60,8 +66,7 @@ function setup() {
   carte.push(carta7);
   carta8=new Carta(1100,500,imgC,2,imgF);
   carte.push(carta8);
-
-
+  
 }
 
 function draw() {
@@ -84,39 +89,44 @@ function draw() {
   textSize(32);
   text("Punteggio: " + punteggio, 50, 50);
   noTint();
+  if (talpa && talpa.visibile) {
+  talpa.show();
+  talpa.fadeOut();
+}
+
 }
 if(schema===0){
   background(start);
 }}
 
 function controllaMatch() {
+
   if (primaCarta.val === secondaCarta.val) {
+
     punteggio++;
 
-    // imposta pausa prima di sfumare
+    // CREA TALPA
+    talpa =new Talpa(imgTalpa);
+
     primaCarta.daRimuovere = true;
     secondaCarta.daRimuovere = true;
-    primaCarta.pauseTimer = 60;  // 1 secondo
-    secondaCarta.pauseTimer = 60; // 1 secondo
 
-    // blocca click subito
     bloccaClick = true;
 
-    // reset delle scelte dopo la pausa + fade (circa 1 secondo)
     setTimeout(() => {
       resetScelte();
     }, 1000);
+
   } else {
-    // rigira se non è match
+
     setTimeout(() => {
       primaCarta.flip();
       secondaCarta.flip();
       resetScelte();
     }, 1000);
+
   }
 }
-  
-
 
 
 function resetScelte() {
@@ -126,10 +136,21 @@ function resetScelte() {
 }
 
 function mouseClicked() {
+
   if (bloccaClick) return;
+
+
+  if (talpa && talpa.visibile && talpa.isMouseOver()) {
+    talpa.preso(imgTalpaHit);
+    punteggio += 2;
+    return;
+  }
+
+  // POI controlla le carte
   for (let n of carte) {
-    if (n.isMouseOver() && !n.trovata && !n.girata  && n !== primaCarta && n.imgShow === imgC) {
-      n.flip(imgF);
+    if (n.isMouseOver() && !n.trovata && !n.girata && n !== primaCarta && n.imgShow === imgC) {
+
+      n.flip();
 
       if (primaCarta === null) {
         primaCarta = n;
@@ -141,10 +162,10 @@ function mouseClicked() {
       break;
     }
   }
-  if(schema===0){
-    schema++;
-  } 
 }
+
+
+
 function keyPressed(){
   if( schema===0 && key== " "){
     schema++;
