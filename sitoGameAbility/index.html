@@ -3,65 +3,114 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>FlickIt - Videogioco per SLA / Sclerosi Multipla</title>
-    <link rel="stylesheet" href="css.css">
+    <title>FlickIt – Gioco accessibile per SLA e Sclerosi Multipla</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css.css">
 </head>
 <body>
 
-    <header>
-        <nav class="navbar">
-            <div class="logo-nav">
-                <img src="img/logo.png" alt="Logo FlickIt" class="logo-img">
-                <span class="logo-text">FlickIt</span>
-            </div>
-            <ul class="nav-links">
-                <li><a href="chisiamo.html">Chi siamo</a></li>
-                <li><a href="contatti.html">Contatti</a></li>
-                <li><a href="descrizione.html">Cos'è la SLA</a></li>
-            </ul>
-        </nav>
-    </header>
+<header class="header">
+    <nav class="navbar container">
+        <div class="logo">
+            <img src="img/logo.png" alt="Logo FlickIt" class="logo-img">
+            <span class="logo-text">FlickIt</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="chisiamo.html">Chi siamo</a></li>
+            <li><a href="contatti.html">Contatti</a></li>
+            <li><a href="descrizione.html">Cos'è la SM</a></li>
+        </ul>
+    </nav>
+</header>
 
-    <main>
-        <section class="hero-slider">
-            <div class="slides-container">
-                <div class="slide slide1"></div>
-                <div class="slide slide2"></div>
-                <div class="slide slide3"></div>
-            </div>
+<main>
 
-            <div class="slider-overlay"></div>
+    <section class="hero">
+        <div class="hero-slider">
+            <div class="slide active" style="background-image: url('img/hero-1.jpg');"></div>
+            <div class="slide" style="background-image: url('img/hero-2.jpg');"></div>
+            <div class="slide" style="background-image: url('img/hero-3.jpg');"></div>
+        </div>
 
-            <div class="dots">
-                <span class="dot" data-slide="1"></span>
-                <span class="dot" data-slide="2"></span>
-                <span class="dot" data-slide="3"></span>
-            </div>
+        <div class="hero-overlay"></div>
 
-            <div class="hero-text">
-                <h1>FlickIt</h1>
-                <p>Un memory game accessibile pensato per allenare coordinazione e attenzione<br>
-                in persone con Sclerosi Multipla (SM / SLA*).</p>
+        <div class="hero-content">
+            <h1>FlickIt</h1>
+            <p class="lead">Un memory game per allenare<br>coordinazione e attenzione</p>
+            <p class="subtitle">Progettato pensando alle persone con Sclerosi Multipla e SLA</p>
+            <div class="hero-cta">
+                <a href="#come-gioca" class="btn btn-primary">Scopri come funziona</a>
             </div>
-        </section>
+        </div>
 
-        <section class="intro-text">
-            <div class="content-wrapper">
-                <h2>Un gioco per divertirsi e allenarsi</h2>
-                <p>
-                    Obiettivo del gioco: trovare le coppie di carte. Quando trovi una coppia appare una talpa 
-                    a sorpresa: se riesci a colpirla mantieni il punteggio, altrimenti… te lo ruba!
-                </p>
-                <p>
-                    Comandi semplificati, tempi regolabili, grafica chiara e colori ad alto contrasto: 
-                    tutto pensato per essere il più accessibile possibile.
-                </p>
+        <div class="slider-controls">
+            <span class="dot active" data-slide="0"></span>
+            <span class="dot" data-slide="1"></span>
+            <span class="dot" data-slide="2"></span>
+        </div>
+    </section>
+
+    <section class="section intro" id="come-gioca">
+        <div class="container">
+            <div class="grid-2">
+                <div class="intro-text">
+                    <h2>Un gioco semplice,<br>ma molto utile</h2>
+                    <p>Trova le coppie di carte. Quando trovi una coppia appare una talpa a sorpresa: colpiscila velocemente per mantenere il punteggio!</p>
+                    <p>Comandi ridotti al minimo, tempi personalizzabili, alto contrasto, testi chiari: tutto è studiato per essere il più accessibile possibile.</p>
+                </div>
+                <div class="intro-visual">
+                    <!-- Spazio per GIF o immagine del gameplay -->
+                    <img src="img/gameplay-screenshot.jpg" alt="Schermata di gioco FlickIt" class="gameplay-img">
+                    <p class="img-caption">Esempio di gameplay con talpa sorpresa</p>
+                </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
+
+    <section class="section features light-bg">
+        <div class="container">
+            <h2 class="section-title">Caratteristiche pensate per te</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⭐</div>
+                    <h3>Identity</h3>
+                    <p>Rappresenta l’unicità di ogni giocatore: il gioco si adatta alle capacità individuali, permettendo a ogni persona con SLA di sentirsi protagonista 
+                    del proprio percorso di allenamento e miglioramento.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Determination</h3>
+                    <p>Indica la forza e la perseveranza nel superare le difficoltà quotidiane: ogni livello completato 
+                    e ogni movimento allenato rappresentano piccoli traguardi verso maggiore autonomia e fiducia.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3>Mind</h3>
+                    <p>Rappresenta l’allenamento mentale e la concentrazione: attraverso il memory game, i giocatori stimolano memoria, attenzione e coordinazione, trasformando l’esercizio in un’esperienza coinvolgente e stimolante.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <h3>Community</h3>
+                    <p>Simbolo di condivisione e supporto reciproco: il progetto nasce per creare uno spazio inclusivo dove i giocatori si sentono parte di una comunità che incoraggia, motiva e non lascia nessuno indietro.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <p>© 2025 – 4A Robotica – ITIS Mario Delpozzo, Cuneo</p>
+        <p>Progetto scolastico per il supporto e la sensibilizzazione sulla Sclerosi Multipla</p>
+    </div>
+</footer>
 
 </body>
 </html>
