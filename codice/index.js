@@ -88,7 +88,7 @@ if(schema===0){
   background(start);
 }
 if(schema === 2){
-  background(0);
+  background(back);
 
   // aggiorna e mostra coriandoli
   for (let c of coriandoli) {
