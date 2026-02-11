@@ -1754,3 +1754,39 @@ main.page-main {
     color: #1e40af;
     margin-bottom: 4rem;
 }
+
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 160px;                 /* ← larghezza delle barre laterali */
+    z-index: -2;
+    pointer-events: none;
+}
+
+body::before {
+    left: 0;
+    background: linear-gradient(to bottom, #ff980022, #ffb74d11);
+}
+
+body::after {
+    right: 0;
+    background: linear-gradient(to bottom, #ff980022, #ffb74d11);
+}
+
+/* Impedisce che il contenuto centrale venga coperto su schermi stretti */
+@media (max-width: 1100px) {
+    body::before,
+    body::after {
+        width: 200px;              /* barre più strette su tablet */
+    }
+}
+
+@media (max-width: 768px) {
+    body::before,
+    body::after {
+        display: none;            /* spariscono su mobile */
+    }
+}
