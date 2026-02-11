@@ -1053,3 +1053,704 @@ main.page-main {
         font-size: 4.5rem;
     }
 }
+
+/* ==========================================================================
+   CHI SIAMO – versione dinamica
+   ========================================================================== */
+
+/* Animazioni generali */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes slideLeft {
+    from { opacity: 0; transform: translateX(-60px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideRight {
+    from { opacity: 0; transform: translateX(60px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+.animate-fade-up  { animation: fadeUp 0.9s ease-out forwards; }
+.animate-fade-in  { animation: fadeIn 1.2s ease-out forwards; }
+.animate-slide-left  { animation: slideLeft 1s ease-out forwards; }
+.animate-slide-right { animation: slideRight 1s ease-out forwards; }
+
+/* Hero introduttivo */
+.team-hero {
+    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    color: white;
+    padding: 12rem 0 8rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.team-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 70%, rgba(255,152,0,0.18) 0%, transparent 50%);
+    z-index: 0;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-size: clamp(3.8rem, 9vw, 6.5rem);
+    margin-bottom: 1.2rem;
+}
+
+.highlight {
+    color: #ff9800;
+}
+
+.lead {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    max-width: 780px;
+    margin: 0 auto;
+    opacity: 0.95;
+}
+
+/* Immagine principale del team */
+.team-image-container {
+    position: relative;
+    max-width: 900px;
+    margin: 4rem auto 0;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+}
+
+.team-main-img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.image-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.75), transparent);
+    padding: 2.5rem 2rem 1.5rem;
+    color: white;
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+
+/* Card del team */
+.team-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2.5rem;
+    margin: 5rem 0;
+}
+
+.team-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+    transition: all 0.4s ease;
+    text-align: center;
+    padding-bottom: 2rem;
+}
+
+.team-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.18);
+}
+
+.card-photo {
+    height: 220px;
+    background: #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.team-card h3 {
+    font-size: 1.7rem;
+    margin: 1.4rem 0 0.6rem;
+    color: #1e40af;
+}
+
+.role {
+    color: #ff9800;
+    font-weight: 600;
+    font-size: 1.15rem;
+}
+
+/* Timeline */
+.project-timeline {
+    max-width: 800px;
+    margin: 6rem auto 0;
+    text-align: center;
+}
+
+.project-timeline h3 {
+    font-size: 2.2rem;
+    color: #1e40af;
+    margin-bottom: 3rem;
+}
+
+.timeline-items {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    position: relative;
+}
+
+.timeline-item {
+    display: flex;
+    align-items: center;
+    gap: 1.8rem;
+    background: #f8fafc;
+    padding: 1.8rem;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+}
+
+.timeline-dot {
+    width: 18px;
+    height: 18px;
+    background: #ff9800;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.timeline-content h4 {
+    font-size: 1.6rem;
+    margin-bottom: 0.6rem;
+    color: #1e40af;
+}
+
+.timeline-content p {
+    margin: 0;
+    color: #4b5563;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .team-hero { padding: 9rem 0 6rem; }
+    .team-cards-grid { gap: 2rem; }
+}
+
+@media (max-width: 768px) {
+    .timeline-item { flex-direction: column; text-align: center; gap: 1.2rem; }
+    .timeline-dot { margin: 0 auto; }
+}
+
+.team-section {
+    padding: 8rem 0 10rem;  /* più spazio in basso per far "respirare" l'immagine finale */
+}
+
+.team-image-container {
+    max-width: 1000px;      /* un po' più larga per impatto visivo */
+    margin: 5rem auto 0;    /* margine superiore maggiore */
+    border-radius: 32px;    /* angoli più arrotondati */
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+    position: relative;
+}
+
+.team-main-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.6s ease;
+}
+
+.team-image-container:hover .team-main-img {
+    transform: scale(1.04);  /* leggero zoom al hover */
+}
+
+/* ==========================================================================
+   CHI SIAMO – versione bianca + super dinamica
+   ========================================================================== */
+
+/* Animazioni più morbide */
+@keyframes pop {
+    0%   { opacity: 0; transform: scale(0.85) translateY(30px); }
+    60%  { opacity: 0.7; transform: scale(1.05); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.animate-pop { animation: pop 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+
+/* Intestazione bianca semplice ma impattante */
+.intro-header {
+    text-align: center;
+    padding: 6rem 0 3rem;
+}
+
+.intro-header h1 {
+    font-size: clamp(4rem, 10vw, 7.2rem);
+    font-weight: 800;
+    color: #1e40af;
+    margin-bottom: 1.2rem;
+    line-height: 0.92;
+}
+
+.highlight-orange {
+    color: #ff9800;
+}
+
+.intro-lead {
+    font-size: clamp(1.5rem, 4vw, 2.1rem);
+    color: #374151;
+    max-width: 820px;
+    margin: 0 auto;
+    line-height: 1.5;
+}
+
+/* Card con stagger e hover più dinamico */
+.team-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.8rem;
+    margin: 4rem 0 6rem;
+}
+
+.team-card {
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    transition: all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+    text-align: center;
+}
+
+.team-card:hover {
+    transform: translateY(-16px) scale(1.03);
+    box-shadow: 0 30px 70px rgba(0,0,0,0.18);
+}
+
+.card-photo {
+    height: 240px;
+    background: #f1f5f9;
+}
+
+.card-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.team-card:hover .card-photo img {
+    transform: scale(1.08);
+}
+
+.team-card h3 {
+    font-size: 1.75rem;
+    margin: 1.5rem 0 0.5rem;
+    color: #1e40af;
+}
+
+.role {
+    color: #ff9800;
+    font-weight: 600;
+    font-size: 1.18rem;
+}
+
+/* Timeline con linea animata */
+.project-timeline {
+    max-width: 900px;
+    margin: 0 auto 6rem;
+    text-align: center;
+}
+
+.project-timeline h3 {
+    font-size: 2.4rem;
+    color: #1e40af;
+    margin-bottom: 3.5rem;
+}
+
+.timeline-container {
+    position: relative;
+    padding: 2rem 0;
+}
+
+.timeline-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 4px;
+    background: linear-gradient(to bottom, #ff9800 0%, #ffb74d 100%);
+    transform: translateX(-50%);
+    animation: growLine 2.5s ease-out forwards;
+}
+
+@keyframes growLine {
+    from { height: 0; }
+    to   { height: 100%; }
+}
+
+.timeline-items {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    position: relative;
+}
+
+.timeline-item {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    background: #f8fafc;
+    padding: 1.8rem 2rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+    position: relative;
+}
+
+.timeline-dot {
+    width: 22px;
+    height: 22px;
+    background: white;
+    border: 4px solid #ff9800;
+    border-radius: 50%;
+    flex-shrink: 0;
+    z-index: 2;
+}
+
+.timeline-content h4 {
+    font-size: 1.45rem;
+    margin-bottom: 0.6rem;
+    color: #1e40af;
+}
+
+.timeline-content p {
+    margin: 0;
+    color: #4b5563;
+}
+
+/* Immagine finale grande */
+.team-image-final {
+    max-width: 1100px;
+    margin: 4rem auto 0;
+    border-radius: 32px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.22);
+    position: relative;
+}
+
+.team-main-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.7s ease;
+}
+
+.team-image-final:hover .team-main-img {
+    transform: scale(1.03);
+}
+
+.image-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    padding: 3rem 2rem 1.5rem;
+    color: white;
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .timeline-item { flex-direction: column; text-align: center; gap: 1.4rem; }
+    .timeline-line { left: 30px; }
+    .timeline-dot { margin: 0 auto; }
+}
+
+/* ==========================================================================
+   CHI SIAMO – modifiche richieste
+   ========================================================================== */
+
+/* Titolo vicinissimo al navbar */
+.intro-header {
+    text-align: center;
+    padding: 3rem 0 4rem;          /* padding superiore ridotto drasticamente */
+}
+
+.intro-header h1 {
+    font-size: clamp(4.8rem, 11vw, 8.5rem);
+    font-weight: 900;
+    color: #1e40af;
+    margin: 0;
+    line-height: 0.9;
+}
+
+.highlight-orange {
+    color: #ff9800;
+}
+
+.intro-lead {
+    font-size: clamp(1.6rem, 4vw, 2.3rem);
+    color: #374151;
+    max-width: 780px;
+    margin: 1.5rem auto 0;
+}
+
+/* Testo centrale (blocco più stretto) */
+.team-story {
+    max-width: 720px;               /* più stretto per centrare meglio */
+    margin: 0 auto 3rem;
+    font-size: 1.18rem;
+    line-height: 1.85;
+    color: #374151;
+    text-align: center;             /* tutto centrato */
+}
+
+.team-story p {
+    margin-bottom: 1.8rem;
+}
+
+/* Spazio extra prima della timeline */
+.spacer {
+    height: 6rem;                   /* distanza maggiore */
+}
+
+/* Timeline più carina */
+.project-timeline {
+    max-width: 900px;
+    margin: 0 auto 7rem;
+    text-align: center;
+}
+
+.project-timeline h3 {
+    font-size: 2.6rem;
+    color: #1e40af;
+    margin-bottom: 4rem;
+    position: relative;
+}
+
+.project-timeline h3::after {
+    content: "";
+    width: 120px;
+    height: 4px;
+    background: #ff9800;
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
+.timeline-container {
+    position: relative;
+    padding: 3rem 0;
+}
+
+.timeline-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 5px;
+    background: linear-gradient(to bottom, #ff9800, #ffb74d, #ff9800);
+    transform: translateX(-50%);
+    border-radius: 5px;
+    animation: growLine 2.8s ease-out forwards;
+}
+
+.timeline-items {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    position: relative;
+}
+
+.timeline-item {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    background: white;
+    padding: 1.8rem 2.2rem;
+    border-radius: 20px;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.08);
+    position: relative;
+    transition: transform 0.4s ease;
+}
+
+.timeline-item:hover {
+    transform: translateY(-8px);
+}
+
+.timeline-dot {
+    width: 60px;
+    height: 60px;
+    background: white;
+    border: 5px solid #ff9800;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 20px rgba(255,152,0,0.3);
+    z-index: 2;
+}
+
+.dot-icon {
+    font-size: 2.2rem;
+}
+
+.timeline-content h4 {
+    font-size: 1.6rem;
+    margin-bottom: 0.8rem;
+    color: #1e40af;
+}
+
+.timeline-content p {
+    margin: 0;
+    color: #4b5563;
+    font-size: 1.1rem;
+}
+
+/* Immagine finale (invariata) */
+.team-image-final {
+    max-width: 1100px;
+    margin: 0 auto;
+    border-radius: 32px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.22);
+    position: relative;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .timeline-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
+    }
+    .timeline-line {
+        left: 30px;
+    }
+}
+
+/* Titolo vicinissimo al navbar */
+.intro-header {
+    text-align: center;
+    padding: 1.5rem 0 4rem;          /* ← ridotto drasticamente il padding sopra */
+}
+
+.intro-header h1 {
+    font-size: clamp(5rem, 12vw, 9rem);
+    font-weight: 900;
+    color: #1e40af;
+    margin: 0;
+    line-height: 0.9;
+}
+
+/* Testo introduttivo – più centrato e stretto */
+.team-story {
+    max-width: 680px;                 /* ← più stretto per centrare meglio */
+    margin: 0 auto 4rem;              /* margini automatici per centrare */
+    font-size: 1.18rem;
+    line-height: 1.85;
+    color: #374151;
+    text-align: center;               /* tutto il testo centrato */
+}
+
+.team-story p {
+    margin-bottom: 1.8rem;
+}
+
+/* Spazio extra prima della timeline */
+.spacer {
+    height: 8rem;                     /* ← più spazio per allontanare */
+}
+
+/* Titolo timeline centrato e più evidente */
+.project-timeline h3 {
+    font-size: 2.8rem;
+    color: #1e40af;
+    margin-bottom: 4.5rem;
+    position: relative;
+    text-align: center;
+}
+
+.project-timeline h3::after {
+    content: "";
+    width: 140px;
+    height: 5px;
+    background: #ff9800;
+    position: absolute;
+    bottom: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 3px;
+}
+
+/* Immagine finale centrata */
+.team-image-final {
+    max-width: 1000px;
+    margin: 5rem auto 0;              /* margine superiore maggiore + centrato */
+}
+
+/* Titolo SUPER attaccato alla navbar */
+.intro-header {
+    text-align: center;
+    padding: 0.5rem 0 3.5rem;     /* ← quasi zero sopra, solo un filo per respiro */
+    margin-top: 0;
+}
+
+.intro-header h1 {
+    font-size: clamp(4.5rem, 11vw, 8rem);
+    font-weight: 900;
+    color: #1e40af;
+    margin: 0;
+    line-height: 0.9;
+}
+
+/* Assicurati che il main non aggiunga padding extra sopra */
+.page-main {
+    padding-top: 0 !important;     /* ← forza zero padding sopra il main */
+}
+
+/* Il resto rimane invariato */
+.team-story {
+    max-width: 680px;
+    margin: 0 auto 3rem;
+    font-size: 1.18rem;
+    line-height: 1.85;
+    color: #374151;
+    text-align: center;
+}
+
+.spacer {
+    height: 7rem;                 /* distanza dalla timeline */
+}
+
+.project-timeline h3 {
+    text-align: center;
+    font-size: 2.8rem;
+    color: #1e40af;
+    margin-bottom: 4rem;
+}
