@@ -105,23 +105,23 @@ Sito ufficiale: [https://carlottabruno.github.io/]
 ### Team di sviluppo
 
 #### Isabel Ciartano
-GitHub: @IsabelCiartano
-Instagram: @isabelciartano
-Email: isabel.ciartano@itiscuneo.edu.it
+* GitHub: @IsabelCiartano
+* Instagram: @isabelciartano
+* Email: isabel.ciartano@itiscuneo.edu.it
 
 #### Carlotta Bruno
-GitHub: @carlottabruno
-Instagram: @carlottabruno
-Email: carlotta.bruno@itiscuneo.edu.it
+* GitHub: @carlottabruno
+* Instagram: @carlottabruno
+* Email: carlotta.bruno@itiscuneo.edu.it
 
 #### Matteo Solare
-GitHub: @matteosolare
-Instagram: @_mattesolare_
-Email: matteo.solare@itiscuneo.edu.it
+* GitHub: @matteosolare
+* Instagram: @_mattesolare_
+* Email: matteo.solare@itiscuneo.edu.it
 
 #### Dionyz Picollo
-GitHub: @JJpaicols
-Instagram: @not.did0
-Email: dionyz.picollo@itiscuneo.edu.it
+* GitHub: @JJpaicols
+* Instagram: @not.did0
+* Email: dionyz.picollo@itiscuneo.edu.it
 
-Per collaborazioni, informazioni o supporto è possibile contattare il team attraverso uno dei riferimenti sopra indicati.
+#### Per collaborazioni, informazioni o supporto è possibile contattare il team attraverso uno dei riferimenti sopra indicati.
