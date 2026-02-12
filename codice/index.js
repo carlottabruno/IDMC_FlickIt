@@ -43,14 +43,14 @@ function preload() {
   imgc6 = loadImage('./img/carta6.png');
   imgc7=loadImage('./img/carta7.png');
   imgc8=loadImage('./img/carta8.png');
-  imgc9=loadImage('.img/carta9.png');
-  imgc10=loadImage('.img/carta10.png');
+  imgc9=loadImage('./img/carta9.png');
+  imgc10=loadImage('./img/carta10.png');
   imgc11=loadImage('./img/carta11.png');
-  imgc12=loadImage
-  imgc13=loadImage
-  imgc14=loadImage
-  imgc15=loadImage
-  imgc16=loadImage
+  imgc12=loadImage('./img/carta12.png');
+  imgc13=loadImage('./img/carta13.png');
+  imgc14=loadImage('./img/carta14.png');
+  imgc15=loadImage('./img/carta15.png');
+  imgc16=loadImage('./img/carta16.png');
   start = loadImage('./img/start.jpg');
   imgTalpa = loadImage('./img/images.jpeg');
   imgTalpaHit = loadImage('./img/images1.jpeg');
@@ -248,13 +248,13 @@ function inizializzaCarte(livello) {
     carte.push(new Carta(700, 400, imgC, 67, imgc10));
   } else if (livello === 3) {
     carte.push(new Carta(300, 100, imgC, 60, imgc11));
-    carte.push(new Carta(500, 100, imgC, 68, imgc ));
-    carte.push(new Carta(700, 100, imgC, 13, imgc ));
+    carte.push(new Carta(500, 100, imgC, 68, imgc15));
+    carte.push(new Carta(700, 100, imgC, 13, imgc13 ));
     carte.push(new Carta(900, 100, imgC, 5, imgc5));
     carte.push(new Carta(1100, 100, imgC, 60, imgc12 ));
     carte.push(new Carta(400, 350, imgC, 5, imgc6));
-    carte.push(new Carta(600, 350, imgC, 68, imgc ));
-    carte.push(new Carta(800, 350, imgC, 13, imgc ));
+    carte.push(new Carta(600, 350, imgC, 68, imgc16 ));
+    carte.push(new Carta(800, 350, imgC, 13, imgc14 ));
     carte.push(new Carta(1000, 350, imgC, 67, imgc9));
     carte.push(new Carta(1200, 350, imgC, 67, imgc10));
   }
