@@ -24,10 +24,10 @@ Questo file README rappresenta una **documentazione iniziale**, che verrà ampli
 ## Tecnologie utilizzate
 
 * **p5.js** per lo sviluppo del gioco
-* **Librerie di hand tracking** integrate con p5 per il riconoscimento della mano tramite webcam
-* **Computer vision** per il rilevamento dei movimenti e dei gesti
+* **ml5.js** : libreria di machine learning per JavaScript che permette il riconoscimento della mano tramite webcam, consentendo di utilizzare i movimenti e la chiusura della mano come sistema di controllo
+  all’interno del gioco
 
-L’interazione con il gioco avviene **senza mouse o tastiera**, ma esclusivamente tramite la mano dell’utente.
+L’interazione con il gioco avviene **con mouse o tastiera** ed anche tramite **la mano** dell’utente.
 
 ---
 
