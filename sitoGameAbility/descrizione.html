@@ -30,18 +30,83 @@
 <main class="page-main">
     <section class="descrizione-malattia section">
         <div class="container">
-            <h1 class="section-title">La Sclerosi Multipla</h1>
+            <h1 class="section-title animate-fade-up">Capire la <span class="highlight-orange">Sclerosi Multipla</span></h1>
             
-            <div class="testo-malattia">
-                <p>La sclerosi multipla è una malattia cronica del sistema nervoso centrale (cervello e midollo spinale) in cui il sistema immunitario attacca per errore la mielina, la guaina che protegge le fibre nervose.</p>
-                
-                <p>Questo danneggiamento rallenta o interrompe la trasmissione dei segnali nervosi e può causare sintomi diversi da persona a persona, come stanchezza intensa, difficoltà di movimento, problemi di vista, formicolii e disturbi dell’equilibrio.</p>
-                
-                <p>L’andamento può essere a fasi (con ricadute e periodi di miglioramento) oppure progressivo. Non esiste ancora una cura definitiva, ma esistono terapie che aiutano a ridurre i sintomi, rallentare la progressione della malattia e migliorare la qualità di vita.</p>
-            </div>
+            <div class="journey-wrapper">
+                <!-- Step 1: Nervo sano -->
+                <div class="journey-step animate-fade-up" style="animation-delay: 0.3s;">
+                    <div class="step-visual">
+                        <img src="img/nervosano.jpg" 
+                             alt="Nervo con mielina sana" class="journey-img">
+                        <div class="step-label">Nervo sano</div>
+                    </div>
+                    <div class="step-text">
+                        <h3>La mielina: <br>l'isolante dei nervi</h3>
+                        <p>Nel sistema nervoso centrale (cervello e midollo spinale), le fibre nervose sono avvolte da una guaina protettiva chiamata <strong>mielina</strong>. Funziona come l'isolante di un cavo elettrico: permette ai segnali di viaggiare velocemente e in modo efficiente.</p>
+                    </div>
+                </div>
 
-            <div class="nota-finale">
-                <p><strong>FlickIt</strong> è stato creato proprio per supportare le persone con questa malattia attraverso un gioco accessibile che aiuta ad allenare coordinazione e attenzione in modo divertente e motivante.</p>
+                <!-- Step 2: Attacco autoimmune -->
+                <div class="journey-step animate-fade-up reverse" style="animation-delay: 0.6s;">
+                    <div class="step-visual">
+                        <img src="img/nervomal.jpg" 
+                             alt="Danno alla mielina nella SM" class="journey-img">
+                        <div class="step-label">Nervo non sano</div>
+                    </div>
+                    <div class="step-text">
+                        <h3>Cosa succede nella SM</h3>
+                        <p>Per motivi ancora non completamente chiari, il <strong>sistema immunitario</strong> attacca per errore la mielina. Questo processo si chiama <strong>demielinizzazione</strong>: si formano placche (aree danneggiate) che rallentano o bloccano i segnali nervosi.</p>
+                    </div>
+                </div>
+
+                <!-- Step 3: Sintomi variabili -->
+                <div class="journey-step animate-fade-up" style="animation-delay: 0.9s;">
+                    <div class="step-visual">
+                        <img src="img/sintomi.jpeg" 
+                             alt="Infografica sintomi sclerosi multipla" class="journey-img symptoms-infographic">
+                        <div class="step-label">Sintomi</div>
+                    </div>
+                    <div class="step-text">
+                        <h3>Sintomi che cambiano da persona a persona</h3>
+                        <ul class="symptoms-list">
+                            <li>Stanchezza intensa (la più comune)</li>
+                            <li>Difficoltà motorie e di equilibrio</li>
+                            <li>Problemi di vista (vista offuscata, doppia)</li>
+                            <li>Formicolii, intorpidimento</li>
+                            <li>Disturbi cognitivi, memoria, umore</li>
+                            <li>Problemi alla vescica o intestino</li>
+                        </ul>
+                        <p class="small-note">I sintomi dipendono dalla formazione le placche.</p>
+                    </div>
+                </div>
+
+                <!-- Step 4: Andamento e terapie -->
+                <div class="journey-step animate-fade-up reverse" style="animation-delay: 1.2s;">
+                    <div class="step-text full-width">
+                        <h3>Come evolve e cosa si può fare</h3>
+                        <p>L'andamento può essere:</p>
+                        <div class="evolution-types">
+                            <div class="type-box">→ <strong>A ricadute-remissioni</strong> (fasi alternate)</div>
+                            <div class="type-box">→ <strong>Progressivo</strong> (peggioramento graduale)</div>
+                        </div>
+                        <p>Non esiste ancora una cura definitiva, ma oggi ci sono:</p>
+                        <ul class="therapies-list">
+                            <li>Terapie modificanti la malattia (riducono ricadute e progressione)</li>
+                            <li>Farmaci sintomatici per stanchezza, spasmi, dolore</li>
+                            <li>Riabilitazione motoria e cognitiva</li>
+                            <li>Supporto psicologico e stili di vita sani</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Chiusura con FlickIt -->
+                <div class="nota-finale highlight-block animate-fade-up" style="animation-delay: 1.5s;">
+                    <div class="final-visual">
+                        <img src="img/logo.png" alt="Logo FlickIt" class="final-logo">
+                    </div>
+                    <p><strong>FlickIt</strong> nasce proprio qui: un memory game accessibile, studiato per allenare coordinazione occhio-mano, attenzione e memoria in modo divertente e senza frustrazione. Un piccolo aiuto quotidiano per mantenere attiva mente e corpo.</p>
+                    <a href="progetto.html" class="btn btn-primary">Scopri di più sul progetto</a>
+                </div>
             </div>
         </div>
     </section>

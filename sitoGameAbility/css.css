@@ -1790,3 +1790,575 @@ body::after {
         display: none;            /* spariscono su mobile */
     }
 }
+
+/* ==========================================================================
+   TIMELINE – FLICK CARDS STYLE (originale e giocosa)
+   ========================================================================== */
+
+.project-timeline {
+    max-width: 1100px;
+    margin: 0 auto 7rem;
+    text-align: center;
+}
+
+.project-timeline h3 {
+    font-size: 2.8rem;
+    color: #1e40af;
+    margin-bottom: 5rem;
+    position: relative;
+}
+
+.project-timeline h3::after {
+    content: "";
+    width: 160px;
+    height: 6px;
+    background: #ff9800;
+    position: absolute;
+    bottom: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 3px;
+}
+
+.flick-timeline {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    padding: 2rem 1rem;
+    flex-wrap: wrap;           /* permette stacking su schermi piccoli */
+}
+
+.flick-step {
+    position: relative;
+    flex: 1;
+    min-width: 260px;
+    max-width: 340px;
+    perspective: 1200px;       /* per effetto 3D della rotazione */
+}
+
+.flick-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 
+        0 12px 32px rgba(0,0,0,0.12),
+        0 2px 8px rgba(255,152,0,0.15);
+    transition: all 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform: rotate(3deg) translateY(10px);
+    transform-origin: center bottom;
+}
+
+.flick-step:nth-child(2) .flick-card { transform: rotate(-4deg) translateY(15px); }
+.flick-step:nth-child(3) .flick-card { transform: rotate(5deg) translateY(8px); }
+
+.flick-card:hover {
+    transform: rotate(0deg) translateY(-12px) scale(1.06);
+    box-shadow: 
+        0 28px 60px rgba(0,0,0,0.22),
+        0 8px 20px rgba(255,152,0,0.3);
+}
+
+.card-front {
+    padding: 2.2rem 1.8rem;
+    text-align: center;
+    position: relative;
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: transform 0.6s ease;
+}
+
+.flick-card:hover .card-front {
+    transform: rotateX(8deg);   /* piccolo effetto flip/tilt 3D */
+}
+
+.step-icon {
+    font-size: 4.8rem;
+    margin-bottom: 1.1rem;
+    color: #ff9800;
+    line-height: 1;
+}
+
+.flick-card h4 {
+    font-size: 1.65rem;
+    color: #1e40af;
+    margin-bottom: 0.9rem;
+    font-weight: 700;
+}
+
+.flick-card p {
+    color: #4b5563;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Linea di connessione "filo di memoria" – solo tra le card su desktop */
+.flick-timeline::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(to right, transparent, #ff980055 20%, #ff980055 80%, transparent);
+    background-size: 12px 3px;
+    background-repeat: repeat-x;
+    z-index: -1;
+    transform: translateY(-50%);
+}
+
+/* Animazione stagger entrata */
+.flick-step {
+    opacity: 0;
+    transform: translateY(60px);
+    animation: fadeUpCard 0.9s ease-out forwards;
+}
+
+.flick-step:nth-child(1) { animation-delay: 0.3s; }
+.flick-step:nth-child(2) { animation-delay: 0.55s; }
+.flick-step:nth-child(3) { animation-delay: 0.8s; }
+
+@keyframes fadeUpCard {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile: stacking verticale + linea sparita */
+@media (max-width: 900px) {
+    .flick-timeline {
+        flex-direction: column;
+        gap: 5rem;
+        align-items: center;
+    }
+    
+    .flick-timeline::before {
+        display: none;
+    }
+    
+    .flick-card {
+        transform: rotate(0deg) translateY(0) !important;
+        max-width: 420px;
+    }
+    
+    .flick-step {
+        width: 100%;
+    }
+}
+
+/* ==========================================================================
+   PAGINA DESCRIZIONE SM – VIAGGIO NELLA MIELINA (originale & visivo)
+   ========================================================================== */
+
+.journey-wrapper {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.journey-step {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+    margin-bottom: 8rem;
+    opacity: 0;
+}
+
+.journey-step.reverse {
+    flex-direction: row-reverse;
+}
+
+.step-visual {
+    flex: 1;
+    position: relative;
+}
+
+.journey-img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    transition: transform 0.6s ease;
+}
+
+.journey-step:hover .journey-img {
+    transform: scale(1.04);
+}
+
+.step-label {
+    position: absolute;
+    bottom: -1.2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1e40af;
+    color: white;
+    padding: 0.6rem 1.4rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    white-space: nowrap;
+}
+
+.step-text {
+    flex: 1.2;
+    font-size: 1.22rem;
+    line-height: 1.8;
+}
+
+.step-text h3 {
+    color: #1e40af;
+    font-size: 2.1rem;
+    margin-bottom: 1.2rem;
+}
+
+.symptoms-list, .therapies-list {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+}
+
+.symptoms-list li, .therapies-list li {
+    margin-bottom: 1rem;
+    padding-left: 2rem;
+    position: relative;
+}
+
+.symptoms-list li::before, .therapies-list li::before {
+    content: "•";
+    color: #ff9800;
+    position: absolute;
+    left: 0;
+    font-size: 1.8rem;
+    line-height: 1;
+}
+
+.evolution-types {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.type-box {
+    background: #eff6ff;
+    padding: 1rem 1.6rem;
+    border-radius: 12px;
+    border-left: 5px solid #ff9800;
+    font-weight: 600;
+}
+
+.small-note {
+    font-size: 1rem;
+    color: #6b7280;
+    font-style: italic;
+}
+
+.highlight-block {
+    background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+    color: white;
+    padding: 4rem 3rem;
+    border-radius: 24px;
+    text-align: center;
+    margin-top: 6rem;
+    box-shadow: 0 20px 60px rgba(30,64,175,0.25);
+}
+
+.final-logo {
+    height: 120px;
+    margin-bottom: 2rem;
+}
+
+.btn-primary {
+    margin-top: 2rem;
+    background: #ff9800;
+    color: white;
+    padding: 1.2rem 3rem;
+    font-size: 1.3rem;
+}
+
+/* Animazioni fade-up */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(50px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-up {
+    animation: fadeUp 1s ease-out forwards;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .journey-step, .journey-step.reverse {
+        flex-direction: column;
+        text-align: center;
+        gap: 2.5rem;
+    }
+    
+    .step-label {
+        position: static;
+        transform: none;
+        margin: 1rem auto 0;
+    }
+    
+    .symptoms-infographic {
+        max-height: 400px;
+        object-fit: contain;
+    }
+}
+
+/* ==========================================================================
+   PAGINA PROGETTO – VERSIONE CINEMATICA 2026 (ultra originale)
+   ========================================================================== */
+
+/* Sfondo neurale leggero */
+.progetto-section {
+    background: linear-gradient(135deg, #f0f7ff 0%, #e0f2fe 50%, #f9fafb 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.progetto-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M0 50 Q25 30 50 50 T100 50" fill="none" stroke="%23ff980022" stroke-width="2"/></svg>') repeat;
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+/* Hero titolo con typewriter */
+.progetto-hero {
+    text-align: center;
+    padding: 2rem 0 5rem;
+}
+
+.progetto-main-title {
+    font-size: clamp(4.5rem, 12vw, 9rem);
+    font-weight: 900;
+    color: #1e40af;
+    line-height: 0.92;
+    margin: 0;
+}
+
+.typewriter {
+    display: inline-block;
+    overflow: hidden;
+    border-right: 6px solid #ff9800;
+    white-space: nowrap;
+    animation: typing 3.5s steps(7, end) forwards, blink 0.8s step-end infinite;
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to   { width: 100% }
+}
+
+@keyframes blink {
+    from, to { border-color: transparent }
+    50%      { border-color: #ff9800 }
+}
+
+.subtitle-glow {
+    font-size: clamp(2rem, 6vw, 3.8rem);
+    color: #ff9800;
+    font-weight: 700;
+    text-shadow: 0 0 30px rgba(255,152,0,0.5);
+    animation: glowPulse 3s infinite alternate;
+}
+
+@keyframes glowPulse {
+    from { text-shadow: 0 0 20px rgba(255,152,0,0.4); }
+    to   { text-shadow: 0 0 60px rgba(255,152,0,0.9); }
+}
+
+.progetto-lead {
+    font-size: 1.6rem;
+    color: #4b5563;
+    max-width: 720px;
+    margin: 2rem auto 0;
+    font-weight: 500;
+}
+
+/* Scudi accessibilità */
+.accessibility-shields {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    margin: 4rem 0;
+}
+
+.shield {
+    width: 160px;
+    height: 160px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    position: relative;
+    overflow: hidden;
+}
+
+.shield:hover {
+    transform: translateY(-16px) scale(1.12);
+    box-shadow: 0 30px 70px rgba(255,152,0,0.25);
+}
+
+.shield::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: -60px;
+    background: #1e40af;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+}
+
+.shield:hover::after {
+    bottom: 100%;
+    opacity: 1;
+    transform: translateY(-10px);
+}
+
+.shield-icon {
+    font-size: 3.8rem;
+    color: #ff9800;
+    margin-bottom: 0.8rem;
+}
+
+.shield-text {
+    font-weight: 700;
+    color: #1e40af;
+    font-size: 1.15rem;
+}
+
+/* Cerchi potenziati con orbita */
+.benefits-title {
+    text-align: center;
+    font-size: 2.4rem;
+    color: #1e40af;
+    margin: 5rem 0 4rem;
+    position: relative;
+}
+
+.benefits-title::after {
+    content: "";
+    width: 140px;
+    height: 5px;
+    background: #ff9800;
+    position: absolute;
+    bottom: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 3px;
+}
+
+.benefits-circles.enhanced {
+    gap: 3.5rem 4rem;
+}
+
+.benefit-circle {
+    width: 200px;
+    height: 200px;
+    border: 4px solid #ff980044;
+    background: white;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+    transition: all 0.5s ease;
+    position: relative;
+}
+
+.benefit-circle:hover {
+    transform: translateY(-20px) rotate(5deg) scale(1.1);
+    border-color: #ff9800;
+    box-shadow: 0 30px 80px rgba(255,152,0,0.35);
+}
+
+.orbit-1 { animation: floatOrbit1 12s infinite ease-in-out; }
+.orbit-2 { animation: floatOrbit2 14s infinite ease-in-out; }
+.orbit-3 { animation: floatOrbit3 16s infinite ease-in-out; }
+.orbit-4 { animation: floatOrbit4 13s infinite ease-in-out; }
+
+@keyframes floatOrbit1 { 0%,100% { transform: translate(0,0) rotate(0deg); } 50% { transform: translate(20px,-15px) rotate(3deg); } }
+@keyframes floatOrbit2 { 0%,100% { transform: translate(0,0) rotate(0deg); } 50% { transform: translate(-15px,25px) rotate(-4deg); } }
+@keyframes floatOrbit3 { 0%,100% { transform: translate(0,0) rotate(0deg); } 50% { transform: translate(18px,12px) rotate(5deg); } }
+@keyframes floatOrbit4 { 0%,100% { transform: translate(0,0) rotate(0deg); } 50% { transform: translate(-22px,-10px) rotate(-3deg); } }
+
+/* Blocco conclusione luminoso */
+.progetto-conclusion-block {
+    position: relative;
+    background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+    color: white;
+    padding: 5rem 3rem;
+    border-radius: 32px;
+    overflow: hidden;
+    text-align: center;
+    margin: 6rem auto 4rem;
+    max-width: 900px;
+    box-shadow: 0 30px 80px rgba(30,64,175,0.4);
+}
+
+.conclusion-glow {
+    position: absolute;
+    inset: -50%;
+    background: radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.35) 0%, transparent 60%);
+    animation: glowRotate 20s linear infinite;
+}
+
+@keyframes glowRotate {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.progetto-conclusion-block blockquote {
+    font-size: 2.2rem;
+    font-weight: 700;
+    font-style: italic;
+    margin: 0 0 2rem;
+    line-height: 1.4;
+}
+
+.conclusion-text {
+    font-size: 1.4rem;
+    max-width: 720px;
+    margin: 0 auto 2.5rem;
+    opacity: 0.95;
+}
+
+.btn-glow {
+    background: #ff9800;
+    color: white;
+    padding: 1.4rem 3.5rem;
+    font-size: 1.4rem;
+    font-weight: 700;
+    box-shadow: 0 10px 40px rgba(245,158,11,0.5);
+    transition: all 0.4s ease;
+}
+
+.btn-glow:hover {
+    transform: translateY(-6px) scale(1.05);
+    box-shadow: 0 20px 60px rgba(245,158,11,0.7);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .accessibility-shields { gap: 1.5rem; }
+    .shield { width: 140px; height: 140px; }
+    .shield-icon { font-size: 3rem; }
+    .benefits-circles { gap: 3rem 2rem; }
+    .benefit-circle { width: 170px; height: 170px; }
+}
+
+.mission-statement {
+    text-align: center;
+}
