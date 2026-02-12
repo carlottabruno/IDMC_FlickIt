@@ -53,13 +53,11 @@ Il primo gioco è una versione riabilitativa del classico **gioco del memory con
 * Le carte sono inizialmente coperte
 * Girando una carta appare un **calcolo matematico** (ad esempio: `5 + 8`)
 * L’obiettivo è trovare un’altra carta con **un calcolo diverso ma con lo stesso risultato**
-* Le coppie corrette restano scoperte
-* Il gioco termina quando tutte le coppie sono state abbinate
-
-* Sullo schermo sono presenti dei **buchi** intorno al tavolo rappresentato
-* La talpa esce casualmente dai buchi
-* L’utente deve colpire la talpa utilizzando la mano
+* Le coppie corrette vengono tolte dal tavolo ed appare una talpa in una posizione casuale
 * Quando il cursore è sopra la talpa e la mano si chiude, la talpa viene colpita
+* L’utente deve colpire la talpa utilizzando la mano per ottenere più punti
+* Se invece si ignora la talpa, scompare se si continua a giocare a Memory, uscirà una nuova talpa trovando una nuova coppia 
+* Il gioco termina quando tutte le coppie sono state abbinate
 
 Questo gioco permette di allenare:
 
@@ -89,9 +87,41 @@ Il progetto è **in fase di sviluppo**.
 Il codice, le funzionalità e la documentazione verranno aggiornati progressivamente durante il lavoro.
 
 ---
-
 ## Note finali
 
 Questo progetto ha uno scopo **educativo e riabilitativo**.
 
 L’idea è quella di dimostrare come la programmazione e le tecnologie interattive possano essere utilizzate per creare strumenti utili nel supporto alle persone con disabilità motorie.
+
+---
+
+## Contatti
+### Sito del progetto
+
+Sito ufficiale: [https://carlottabruno.github.io/]
+
+---
+
+### Team di sviluppo
+
+#### Isabel Ciartano
+GitHub: @IsabelCiartano
+Instagram: @isabelciartano
+Email: isabel.ciartano@itiscuneo.edu.it
+
+#### Carlotta Bruno
+GitHub: @carlottabruno
+Instagram: @carlottabruno
+Email: carlotta.bruno@itiscuneo.edu.it
+
+#### Matteo Solare
+GitHub: @matteosolare
+Instagram: @_mattesolare_
+Email: matteo.solare@itiscuneo.edu.it
+
+#### Dionyz Picollo
+GitHub: @JJpaicols
+Instagram: @not.did0
+Email: dionyz.picollo@itiscuneo.edu.it
+
+Per collaborazioni, informazioni o supporto è possibile contattare il team attraverso uno dei riferimenti sopra indicati.
