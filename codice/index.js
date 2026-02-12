@@ -2,7 +2,7 @@
 let back;
 let carte = [];
 let imgC;
-let imgc1, imgc2, imgc3, imgc4, imgc5, imgc6;
+let imgc1, imgc2, imgc3, imgc4, imgc5, imgc6,imgc7,imgc8,imgc9,imgc10,imgc11,imgc12,imgc13,imgc14,imgc15,imgc16;
 let start;
 let primaCarta = null;
 let secondaCarta = null;
@@ -41,6 +41,16 @@ function preload() {
   imgc4 = loadImage('./img/carta4.png');
   imgc5 = loadImage('./img/carta5.png');
   imgc6 = loadImage('./img/carta6.png');
+  imgc7=loadImage('./img/carta7.png');
+  imgc8=loadImage('./img/carta8.png');
+  imgc9=loadImage('./img/carta9.png');
+  imgc10=loadImage('./img/carta10.png');
+  imgc11=loadImage('./img/carta11.png');
+  imgc12=loadImage('./img/carta12.png');
+  imgc13=loadImage('./img/carta13.png');
+  imgc14=loadImage('./img/carta14.png');
+  imgc15=loadImage('./img/carta15.png');
+  imgc16=loadImage('./img/carta16.png');
   start = loadImage('./img/start.jpg');
   imgTalpa = loadImage('./img/images.jpeg');
   imgTalpaHit = loadImage('./img/images1.jpeg');
@@ -226,27 +236,27 @@ function inizializzaCarte(livello) {
 
   if (livello === 1) {
     carte.push(new Carta(500, 200, imgC, 7, imgc1));
-    carte.push(new Carta(700, 200, imgC, 7, imgc2));
+    carte.push(new Carta(700, 200, imgC, 5, imgc4));
     carte.push(new Carta(500, 450, imgC, 5, imgc3));
-    carte.push(new Carta(700, 450, imgC, 5, imgc4));
+    carte.push(new Carta(700, 450, imgC, 7, imgc2));
   } else if (livello === 2) {
-    carte.push(new Carta(400, 150, imgC, 2, imgc1));
-    carte.push(new Carta(600, 150, imgC, 2, imgc2));
-    carte.push(new Carta(800, 150, imgC, 8, imgc3));
-    carte.push(new Carta(1000, 150, imgC, 8, imgc4));
-    carte.push(new Carta(500, 400, imgC, 10, imgc5));
-    carte.push(new Carta(700, 400, imgC, 10, imgc6));
+    carte.push(new Carta(400, 150, imgC, 10, imgc5));
+    carte.push(new Carta(600, 150, imgC, 2, imgc7));
+    carte.push(new Carta(800, 150, imgC, 67, imgc9));
+    carte.push(new Carta(1000, 150, imgC, 2, imgc8));
+    carte.push(new Carta(500, 400, imgC, 10, imgc6));
+    carte.push(new Carta(700, 400, imgC, 67, imgc10));
   } else if (livello === 3) {
-    carte.push(new Carta(300, 100, imgC, 1, imgc1));
-    carte.push(new Carta(500, 100, imgC, 1, imgc2));
-    carte.push(new Carta(700, 100, imgC, 3, imgc3));
-    carte.push(new Carta(900, 100, imgC, 3, imgc4));
-    carte.push(new Carta(1100, 100, imgC, 5, imgc5));
+    carte.push(new Carta(300, 100, imgC, 60, imgc11));
+    carte.push(new Carta(500, 100, imgC, 68, imgc15));
+    carte.push(new Carta(700, 100, imgC, 13, imgc13 ));
+    carte.push(new Carta(900, 100, imgC, 5, imgc5));
+    carte.push(new Carta(1100, 100, imgC, 60, imgc12 ));
     carte.push(new Carta(400, 350, imgC, 5, imgc6));
-    carte.push(new Carta(600, 350, imgC, 7, imgc1));
-    carte.push(new Carta(800, 350, imgC, 7, imgc2));
-    carte.push(new Carta(1000, 350, imgC, 9, imgc3));
-    carte.push(new Carta(1200, 350, imgC, 9, imgc4));
+    carte.push(new Carta(600, 350, imgC, 68, imgc16 ));
+    carte.push(new Carta(800, 350, imgC, 13, imgc14 ));
+    carte.push(new Carta(1000, 350, imgC, 67, imgc9));
+    carte.push(new Carta(1200, 350, imgC, 67, imgc10));
   }
 }
 
