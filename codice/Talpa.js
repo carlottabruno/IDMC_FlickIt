@@ -3,8 +3,8 @@ class Talpa {
     this.imgNormale = img;
     this.imgShow = img;
 
-    this.x = random(width - 500);
-    this.y = random(height - 500);
+    this.x = random(width - 100);
+    this.y = random(height - 100);
 
     this.alpha = 255;
     this.visibile = true;
@@ -18,10 +18,15 @@ class Talpa {
     image(this.imgShow, this.x, this.y);
     noTint();
   }
- isMouseOver(px = mouseX, py = mouseY) {
-  return px > this.x && px < this.x + this.imgShow.width &&
-         py > this.y && py < this.y + this.imgShow.height;
-}
+
+  isMouseOver() {
+    return (
+      mouseX > this.x &&
+      mouseX < this.x + this.imgShow.width &&
+      mouseY > this.y &&
+      mouseY < this.y + this.imgShow.height
+    );
+  }
 
   preso(imgHit) {
     this.imgShow = imgHit;
