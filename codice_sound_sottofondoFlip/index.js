@@ -62,6 +62,7 @@ function preload() {
   imgTalpa = loadImage('./img/talpa.png');
   imgTalpaHit = loadImage('./img/coppa.png');
 
+<<<<<<< HEAD
 <<<<<<< HEAD:codice_sound/index.js
   //Sound🔊
   sottofondo = loadSound('sottofondo.mp3',
@@ -73,6 +74,10 @@ function preload() {
   musicaBG = loadSound('./Suoni/sottofondo.mp3');
   musicaFlip = loadSound('./Suoni/carte.wav')
 >>>>>>> 842fbbd9a4496ced04f4b1af8863e0a0157d3841:codice_sound_sottofondoFlip/index.js
+=======
+  musicaBG = loadSound('./Suoni/sottofondo.mp3');
+  musicaFlip = loadSound('./Suoni/carte.wav')
+>>>>>>> 842fbbd9a4496ced04f4b1af8863e0a0157d3841
 }
 
 function modelLoaded() {
