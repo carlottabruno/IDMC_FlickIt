@@ -52,8 +52,8 @@ function preload() {
   imgc15=loadImage('./img/carta15.png');
   imgc16=loadImage('./img/carta16.png');
   start = loadImage('./img/start.jpg');
-  imgTalpa = loadImage('./img/images.jpeg');
-  imgTalpaHit = loadImage('./img/images1.jpeg');
+  imgTalpa = loadImage('./img/talpa.png');
+  imgTalpaHit = loadImage('./img/coppa.png');
 }
 
 function modelLoaded() {
