@@ -10,6 +10,9 @@ let bloccaClick = false;
 let punteggio = 0;
 let schema = 0;
 
+// SUONI
+let musicaBG;
+
 // Talpa
 let talpa = null;
 let imgTalpa;
@@ -54,6 +57,8 @@ function preload() {
   start = loadImage('./img/start.jpg');
   imgTalpa = loadImage('./img/talpa.png');
   imgTalpaHit = loadImage('./img/coppa.png');
+
+  musicaBG = loadSound('./Suoni/sottofondo.mp3');
 }
 
 function modelLoaded() {
@@ -113,8 +118,17 @@ function draw() {
   // SCHEMA 0: Schermata iniziale
   if (schema === 0) {
     background(start);
-    return;
+
+  // Avvia musica di sottofondo
+  if (musicaBG && !musicaBG.isPlaying()) {
+    musicaBG.setVolume(0.4);
+    musicaBG.loop();
   }
+
+  return;
+}
+
+
 
   // SCHEMA 1: Gioco attivo
   if (schema === 1) {
