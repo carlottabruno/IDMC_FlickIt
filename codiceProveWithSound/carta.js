@@ -18,9 +18,6 @@ class Carta {
          py > this.y && py < this.y + this.imgShow.height;
 }
 
-
-
-
 flip() {
 
   if (musicaFlip && musicaFlip.isLoaded()) {

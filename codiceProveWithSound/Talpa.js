@@ -17,6 +17,7 @@ class Talpa {
     image(this.imgShow, this.x, this.y);
     noTint();
   }
+
 isMouseOver(mx, my) {
   // Area più grande per facilitare il click
   let margine = 20; // pixel di tolleranza
@@ -32,7 +33,6 @@ isMouseOver(mx, my) {
   fadeOut() {
     if (this.presa) {
       this.alpha -= 10;
-
       if (this.alpha <= 0) {
         this.visibile = false;
       }

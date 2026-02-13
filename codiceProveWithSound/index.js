@@ -80,7 +80,6 @@ function modelLoaded() {
 
 function gotHands(results) {
   hands = results;
-
   if (hands.length > 0) {
     let hand = hands[0];
     
@@ -129,7 +128,6 @@ function draw() {
   // SCHEMA 0: Schermata iniziale
   if (schema === 0) {
     background(start);
-    
     // Avvia musica di sottofondo
   if (musicaBG && !musicaBG.isPlaying()) {
     musicaBG.setVolume(0.4);
