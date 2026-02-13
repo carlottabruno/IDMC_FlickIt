@@ -2362,3 +2362,70 @@ body::after {
 .mission-statement {
     text-align: center;
 }
+
+/* ==========================================================================
+   IMMAGINE SOTTO IL TITOLO GAMEABILITY (hero visual)
+   ========================================================================== */
+
+.gameability-visual {
+    max-width: 900px;
+    margin: 3.5rem auto 4rem;
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(30,64,175,0.25);
+    animation: fadeUp 1.2s ease-out forwards;
+    animation-delay: 0.4s;
+    opacity: 0;
+}
+
+.hero-game-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.7s ease;
+}
+
+.gameability-visual:hover .hero-game-img {
+    transform: scale(1.04);
+}
+
+.img-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.75), transparent);
+    color: white;
+    padding: 2.5rem 2rem 1.2rem;
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 500;
+    text-align: center;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+}
+
+/* Animazione fade-up per l'immagine */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(50px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive – l'immagine si adatta bene anche su mobile */
+@media (max-width: 900px) {
+    .gameability-visual {
+        margin: 2.5rem auto 3.5rem;
+        border-radius: 16px;
+    }
+    
+    .img-caption {
+        font-size: 1.1rem;
+        padding: 2rem 1.5rem 1rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .hero-game-img {
+        border-radius: 12px;
+    }
+}
