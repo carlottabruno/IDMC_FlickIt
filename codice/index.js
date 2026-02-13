@@ -180,13 +180,10 @@ function draw() {
   // SCHEMA 2: Schermata vittoria
   if (schema === 2) {
     background(back);
-
-    // Coriandoli
     for (let c of coriandoli) {
       c.update();
       c.show();
     }
-
     fill(255);
     textAlign(CENTER, CENTER);
     textSize(80);
@@ -220,7 +217,6 @@ function mostraHandTracking() {
       }
     }
   }
-
   // Mostra cursore mano (più grande e visibile)
   if (hands.length > 0) {
     fill(255, 0, 0, 150);
@@ -264,10 +260,8 @@ function controllaMatch() {
   if (primaCarta.val === secondaCarta.val) {
     // Match trovato!
     punteggio++;
-
     // Crea talpa bonus
     talpa = new Talpa(imgTalpa);
-
     primaCarta.daRimuovere = true;
     secondaCarta.daRimuovere = true;
     bloccaClick = true;
@@ -294,14 +288,12 @@ function resetScelte() {
 
 function controllaVittoria() {
   let tutteTrovate = true;
-
   for (let n of carte) {
     if (!n.trovata) {
       tutteTrovate = false;
       break;
     }
   }
-
   if (tutteTrovate) {
     if (livello < 3) {
       // Passa al livello successivo
@@ -327,16 +319,13 @@ function mouseClicked() {
     schema = 1;
     return;
   }
-
   if (bloccaClick) return;
-
   // Click sulla talpa
   if (talpa && talpa.visibile && talpa.isMouseOver(mouseX, mouseY)) {
     talpa.preso(imgTalpaHit);
     punteggio += 2;
     return;
   }
-
   // Click sulle carte
   for (let n of carte) {
     if (n.isMouseOver(mouseX, mouseY) && !n.trovata && !n.girata && n !== primaCarta && n.imgShow === imgC) {
@@ -361,7 +350,7 @@ function handClick() {
   let my = handY;
 
   // Click sulla talpa
-  if (talpa && talpa.visibile && talpa.isMouseOver(mx, my)) {
+  if (talpa.isMouseOver(mx, my)&& talpa && talpa.visibile) {
     talpa.preso(imgTalpaHit);
     punteggio += 2;
     return;
