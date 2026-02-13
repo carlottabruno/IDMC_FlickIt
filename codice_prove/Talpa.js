@@ -13,7 +13,6 @@ class Talpa {
 
   show() {
     if (!this.visibile) return;
-
     tint(255, this.alpha);
     image(this.imgShow, this.x, this.y);
     noTint();

@@ -156,7 +156,7 @@ function draw() {
     fill(255);
     noStroke();
     textSize(40);
-    text("🖐️ MANO", bottoneMano.x + bottoneMano.w / 2, bottoneMano.y + bottoneMano.h / 2);
+    text(" MANO", bottoneMano.x + bottoneMano.w / 2, bottoneMano.y + bottoneMano.h / 2);
     
     // Istruzioni
     textSize(20);
@@ -204,7 +204,7 @@ function draw() {
     // Mostra modalità
     textSize(24);
     fill(200);
-    text("Modalità: " + (modalitaGioco === "mano" ? "🖐️ MANO" : "🖱️ MOUSE"), 50, 100);
+    text("Modalità: " + (modalitaGioco === "mano" ? " MANO" : " MOUSE"), 50, 100);
 
     // Talpa
     if (talpa && talpa.visibile) {
@@ -215,7 +215,7 @@ function draw() {
       fill(255, 255, 0);
       textSize(32);
       textAlign(CENTER);
-      text("⚠️ PRENDI LA TALPA PRIMA! ⚠️", width / 2, height - 50);
+      text(" PRENDI LA TALPA PRIMA! ", width / 2, height - 50);
       textAlign(LEFT);
     }
 
@@ -402,7 +402,7 @@ function mouseClicked() {
         mouseY > bottoneMano.y && mouseY < bottoneMano.y + bottoneMano.h) {
       modalitaGioco = "mano";
       schema = 2; // Passa al gioco
-      console.log("✅ Modalità MANO selezionata");
+      console.log(" Modalità MANO selezionata");
       return;
     }
     return;
