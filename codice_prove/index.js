@@ -8,7 +8,10 @@ let primaCarta = null;
 let secondaCarta = null;
 let bloccaClick = false;
 let punteggio = 0;
-let schema = 0;
+let schema = 0; // 0 = start, 1 = menu, 2 = gioco, 3 = vittoria
+
+// Modalità di gioco
+let modalitaGioco = null; // "mano" o "mouse" (per ora solo "mano")
 
 // Talpa
 let talpa = null;
@@ -30,6 +33,14 @@ let handX = 0;
 let handY = 0;
 let ultimoClickGesturale = 0;
 let modelReady = false;
+
+// Bottoni menu
+let bottoneMano = {
+  x: 0,
+  y: 0,
+  w: 300,
+  h: 100
+};
 
 function preload() {
   // Carica immagini
@@ -63,11 +74,6 @@ function modelLoaded() {
 
 function gotHands(results) {
   hands = results;
-  
-  // Debug: mostra quando rileva mani
-  if (hands.length > 0) {
-    console.log("Mani rilevate:", hands.length, "Keypoints:", hands[0].keypoints ? hands[0].keypoints.length : "N/A");
-  }
 
   if (hands.length > 0) {
     let hand = hands[0];
@@ -85,6 +91,10 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   frameRate(60);
   inizializzaCarte(livello);
+  
+  // Posiziona bottone al centro
+  bottoneMano.x = width / 2 - bottoneMano.w / 2;
+  bottoneMano.y = height / 2 - bottoneMano.h / 2;
   
   console.log("Setup iniziato...");
   
@@ -116,12 +126,53 @@ function draw() {
     return;
   }
 
-  // SCHEMA 1: Gioco attivo
+  // SCHEMA 1: Menu selezione modalità
   if (schema === 1) {
     background(back);
+    
+    // Titolo
+    fill(255);
+    textAlign(CENTER, CENTER);
+    textSize(60);
+    text("SCEGLI COME GIOCARE", width / 2, height / 2 - 200);
+    
+    // Bottone MANO
+    let hoverMano = mouseX > bottoneMano.x && mouseX < bottoneMano.x + bottoneMano.w &&
+                     mouseY > bottoneMano.y && mouseY < bottoneMano.y + bottoneMano.h;
+    
+    // Disegna bottone
+    if (hoverMano) {
+      fill(100, 200, 100); // Verde chiaro hover
+      stroke(255);
+      strokeWeight(4);
+    } else {
+      fill(50, 150, 50); // Verde normale
+      stroke(200);
+      strokeWeight(2);
+    }
+    rect(bottoneMano.x, bottoneMano.y, bottoneMano.w, bottoneMano.h, 20);
+    
+    // Testo bottone
+    fill(255);
+    noStroke();
+    textSize(40);
+    text("🖐️ MANO", bottoneMano.x + bottoneMano.w / 2, bottoneMano.y + bottoneMano.h / 2);
+    
+    // Istruzioni
+    textSize(20);
+    fill(200);
+    text("Clicca per giocare con i gesti della mano", width / 2, height / 2 + 100);
+    
+    textAlign(LEFT);
+    return;
+  }
 
-    // VIDEO DEBUG SEMPRE VISIBILE in alto a destra
-    if (video && video.loadedmetadata) {
+  // SCHEMA 2: Gioco attivo
+  if (schema === 2) {
+    background(back);
+
+    // VIDEO DEBUG SEMPRE VISIBILE in alto a destra (solo se modalità mano)
+    if (modalitaGioco === "mano" && video && video.loadedmetadata) {
       push();
       translate(width - 210, 10);
       scale(-1, 1);
@@ -146,8 +197,14 @@ function draw() {
     noTint();
     fill(255);
     textSize(42);
+    textAlign(LEFT);
     text("Punteggio: " + punteggio, 50, 50);
     text("Livello: " + livello, 800, 50);
+    
+    // Mostra modalità
+    textSize(24);
+    fill(200);
+    text("Modalità: " + (modalitaGioco === "mano" ? "🖐️ MANO" : "🖱️ MOUSE"), 50, 100);
 
     // Talpa
     if (talpa && talpa.visibile) {
@@ -162,8 +219,8 @@ function draw() {
       textAlign(LEFT);
     }
 
-    // Controllo pizzico per click gesturale
-    if (hands.length > 0) {
+    // Controllo pizzico per click gesturale (solo se modalità mano)
+    if (modalitaGioco === "mano" && hands.length > 0) {
       let hand = hands[0];
       
       // Keypoint 4 = pollice, Keypoint 8 = indice
@@ -180,12 +237,14 @@ function draw() {
       }
     }
 
-    // Debug: mostra hand tracking (opzionale)
-    mostraHandTracking();
+    // Debug: mostra hand tracking (solo se modalità mano)
+    if (modalitaGioco === "mano") {
+      mostraHandTracking();
+    }
   }
 
-  // SCHEMA 2: Schermata vittoria
-  if (schema === 2) {
+  // SCHEMA 3: Schermata vittoria
+  if (schema === 3) {
     background(back);
 
     // Coriandoli
@@ -208,6 +267,7 @@ function mostraHandTracking() {
   fill(255);
   noStroke();
   textSize(16);
+  textAlign(LEFT);
   text("Model: " + (modelReady ? "✓" : "Loading..."), 10, height - 60);
   text("Hands: " + hands.length, 10, height - 40);
   text("Position: " + int(handX) + ", " + int(handY), 10, height - 20);
@@ -319,7 +379,7 @@ function controllaVittoria() {
       bloccaClick = false;
     } else {
       // Vittoria finale!
-      schema = 2;
+      schema = 3;
       coriandoli = [];
       for (let i = 0; i < numCoriandoli; i++) {
         coriandoli.push(new Coriandolo());
@@ -329,39 +389,59 @@ function controllaVittoria() {
 }
 
 function mouseClicked() {
-  // Avvia il gioco dalla schermata iniziale
+  // SCHEMA 0: Avvia dal start al menu
   if (schema === 0) {
     schema = 1;
     return;
   }
 
-  if (bloccaClick) return;
-
-  // Click sulla talpa (SOLO se esiste E se è visibile)
-  if (talpa && talpa.visibile && talpa.isMouseOver(mouseX, mouseY)) {
-    talpa.preso(imgTalpaHit);
-    punteggio += 2;
+  // SCHEMA 1: Selezione modalità nel menu
+  if (schema === 1) {
+    // Click su bottone MANO
+    if (mouseX > bottoneMano.x && mouseX < bottoneMano.x + bottoneMano.w &&
+        mouseY > bottoneMano.y && mouseY < bottoneMano.y + bottoneMano.h) {
+      modalitaGioco = "mano";
+      schema = 2; // Passa al gioco
+      console.log("✅ Modalità MANO selezionata");
+      return;
+    }
     return;
   }
 
-  // Se c'è la talpa visibile, blocca i click sulle carte
-  if (talpa && talpa.visibile) {
-    return;
-  }
+  // SCHEMA 2: Gioco attivo (solo se modalità mouse - per ora non usato)
+  if (schema === 2) {
+    if (bloccaClick) return;
 
-  // Click sulle carte (se NON c'è la talpa o non è visibile)
-  for (let n of carte) {
-    if (n.isMouseOver(mouseX, mouseY) && !n.trovata && !n.girata && n !== primaCarta && n.imgShow === imgC) {
-      n.flip();
+    // Click sulla talpa (SOLO se esiste E se è visibile)
+    if (talpa && talpa.visibile && talpa.isMouseOver(mouseX, mouseY)) {
+      talpa.preso(imgTalpaHit);
+      punteggio += 2;
+      return;
+    }
 
-      if (primaCarta === null) {
-        primaCarta = n;
-      } else {
-        secondaCarta = n;
-        bloccaClick = true;
-        controllaMatch();
+    // Se c'è la talpa visibile, blocca i click sulle carte
+    if (talpa && talpa.visibile) {
+      return;
+    }
+
+    // Click sulle carte (se NON c'è la talpa o non è visibile)
+    // NOTA: Questo funziona solo se modalità è diversa da "mano"
+    // Per ora con modalità mano, si usa solo handClick()
+    if (modalitaGioco !== "mano") {
+      for (let n of carte) {
+        if (n.isMouseOver(mouseX, mouseY) && !n.trovata && !n.girata && n !== primaCarta && n.imgShow === imgC) {
+          n.flip();
+
+          if (primaCarta === null) {
+            primaCarta = n;
+          } else {
+            secondaCarta = n;
+            bloccaClick = true;
+            controllaMatch();
+          }
+          break;
+        }
       }
-      break;
     }
   }
 }
