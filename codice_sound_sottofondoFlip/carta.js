@@ -26,11 +26,23 @@ flip() {
   }
 
   if (!this.girata) {
+<<<<<<< HEAD
+<<<<<<< HEAD:codice_sound/carta.js
+    this.imgShow = this.next; // gira la carta
+    this.girata = true;       // segna come girata
+    if(carteSound) carteSound.play()
+=======
     this.imgShow = this.next;
     this.girata = true;
+>>>>>>> 842fbbd9a4496ced04f4b1af8863e0a0157d3841:codice_sound_sottofondoFlip/carta.js
+=======
+    this.imgShow = this.next;
+    this.girata = true;
+>>>>>>> 842fbbd9a4496ced04f4b1af8863e0a0157d3841
   } else {
     this.imgShow = this.img;
     this.girata = false;
+    if(carteSound) carteSound.play()
   }
 }
 

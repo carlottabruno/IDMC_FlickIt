@@ -35,6 +35,9 @@ let handY = 0;
 let ultimoClickGesturale = 0;
 let modelReady = false;
 
+let carteSound
+let sottofondo
+
 function preload() {
   // Carica immagini
   back = loadImage('./img/tavolo.png');
@@ -59,8 +62,22 @@ function preload() {
   imgTalpa = loadImage('./img/talpa.png');
   imgTalpaHit = loadImage('./img/coppa.png');
 
+<<<<<<< HEAD
+<<<<<<< HEAD:codice_sound/index.js
+  //Sound🔊
+  sottofondo = loadSound('sottofondo.mp3',
+    () => console.log('sottofondo caricato'),
+    (err) => console.error('Errore caricamento sottofondo.mp3', err)
+  );
+
+=======
   musicaBG = loadSound('./Suoni/sottofondo.mp3');
   musicaFlip = loadSound('./Suoni/carte.wav')
+>>>>>>> 842fbbd9a4496ced04f4b1af8863e0a0157d3841:codice_sound_sottofondoFlip/index.js
+=======
+  musicaBG = loadSound('./Suoni/sottofondo.mp3');
+  musicaFlip = loadSound('./Suoni/carte.wav')
+>>>>>>> 842fbbd9a4496ced04f4b1af8863e0a0157d3841
 }
 
 function modelLoaded() {
@@ -296,7 +313,9 @@ function controllaMatch() {
     // Nessun match
     setTimeout(() => {
       primaCarta.flip();
+      //carteSound.play()
       secondaCarta.flip();
+      //carteSound.play()
       resetScelte();
     }, 2000);
   }
@@ -338,11 +357,28 @@ function controllaVittoria() {
 }
 
 function mouseClicked() {
-  // Avvia il gioco dalla schermata iniziale
+
   if (schema === 0) {
+  // Avvia il gioco dalla schermata iniziale
+  // Sblocca audio lato browser prima di suonare
+  userStartAudio().then(() => {
+    let ctx = getAudioContext();
+    if (ctx.state !== 'running') ctx.resume();
+
+    if (sottofondo && !sottofondo.isPlaying()) {
+      sottofondo.setVolume(0.4);
+      sottofondo.loop();
+    } else if (!sottofondo) {
+      console.warn('sottofondo non caricato: aggiungi sottofondo.mp3 nella cartella del progetto');
+    }
+
     schema = 1;
-    return;
-  }
+  }).catch((e) => {
+    console.warn('userStartAudio() fallito', e);
+    schema = 1;
+  });
+  return;
+}
 
   if (bloccaClick) return;
 
