@@ -123,7 +123,7 @@ function draw() {
   if (musicaBG && !musicaBG.isPlaying()) {
     musicaBG.setVolume(0.4);
     musicaBG.loop();
-  }
+  } 
 
   return;
 }
