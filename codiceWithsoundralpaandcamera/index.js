@@ -103,25 +103,56 @@ function setup() {
   
   console.log("Setup iniziato...");
   
-  // Inizializza webcam
-  video = createCapture(VIDEO, function() {
-    console.log("Video pronto!");
-  });
-  video.size(640, 480);
-  video.hide();
-  
-  console.log("Video creato:", video);
-  
-  // Inizializza handPose per ml5@1 latest
-  handPose = ml5.handPose(video, function() {
-    console.log('HandPose model loaded!');
-    modelReady = true;
-    // AVVIA LA DETECTION SOLO DOPO CHE IL MODELLO È CARICATO
-    handPose.detectStart(video, gotHands);
-    console.log("Detection avviata");
-  });
-  
-  console.log("HandPose creato:", handPose);
+  // TROVA E USA TELECAMERA ESTERNA
+  navigator.mediaDevices.enumerateDevices()
+    .then(function(devices) {
+      console.log(" Telecamere disponibili:");
+      let telecameraEsterna = null;
+      devices.forEach(function(device) {
+        if (device.kind === 'videoinput') {
+          console.log("- " + device.label + " (ID: " + device.deviceId + ")");
+          
+          // Cerca telecamera esterna (NON "FaceTime" o "Integrated")
+          if (!device.label.includes('FaceTime') && 
+              !device.label.includes('Integrated')) {
+            telecameraEsterna = device.deviceId;
+          }
+        }
+      });
+      // Usa telecamera esterna se trovata, altrimenti usa quella di default
+      let constraints;
+      if (telecameraEsterna) {
+        console.log("✅ Uso telecamera esterna!");
+        constraints = {
+          video: {
+            deviceId: { exact: telecameraEsterna },
+            width: 640,
+            height: 480
+          }
+        };
+      } else {
+        console.log("⚠️ Nessuna telecamera esterna trovata, uso quella predefinita");
+        constraints = VIDEO;
+      }
+      // Inizializza video
+      video = createCapture(constraints, function() {
+        console.log("Video pronto!");
+      });
+      video.size(640, 480);
+      video.hide();
+      
+
+      // Inizializza handPose DOPO che il video è pronto
+      handPose = ml5.handPose(video, function() {
+        console.log('HandPose model loaded!');
+        modelReady = true;
+        handPose.detectStart(video, gotHands);
+        console.log("Detection avviata");
+      });
+    })
+    .catch(function(err) {
+      console.error("Errore nell'accesso alle telecamere:", err);
+    });
 }
 
 function draw() {
@@ -129,11 +160,11 @@ function draw() {
   if (schema === 0) {
     background(start);
     // Avvia musica di sottofondo
-  if (musicaBG && !musicaBG.isPlaying()) {
-    musicaBG.setVolume(0.4);
-    musicaBG.loop();
-  } 
-  return;
+    if (musicaBG && !musicaBG.isPlaying()) {
+      musicaBG.setVolume(0.4);
+      musicaBG.loop();
+    } 
+    return;
   }
 
   // SCHEMA 1: Menu selezione modalità
@@ -214,7 +245,7 @@ function draw() {
     // Mostra modalità
     textSize(24);
     fill(200);
-    text("Modalità: " + (modalitaGioco === "mano" ? " MANO" : " MOUSE"), 50, 100);
+    text("Modalità: " + (modalitaGioco === "mano" ? "🖐️ MANO" : "🖱️ MOUSE"), 50, 100);
 
     // Talpa
     if (talpa && talpa.visibile) {
@@ -225,7 +256,7 @@ function draw() {
       fill(255, 255, 0);
       textSize(32);
       textAlign(CENTER);
-      text(" PRENDI LA TALPA PRIMA! ", width / 2, height - 50);
+      text("⚠️ PRENDI LA TALPA PRIMA! ⚠️", width / 2, height - 50);
       textAlign(LEFT);
     }
 
@@ -412,7 +443,7 @@ function mouseClicked() {
         mouseY > bottoneMano.y && mouseY < bottoneMano.y + bottoneMano.h) {
       modalitaGioco = "mano";
       schema = 2; // Passa al gioco
-      console.log(" Modalità MANO selezionata");
+      console.log("✅ Modalità MANO selezionata");
       return;
     }
     return;
@@ -441,6 +472,9 @@ function mouseClicked() {
       for (let n of carte) {
         if (n.isMouseOver(mouseX, mouseY) && !n.trovata && !n.girata && n !== primaCarta && n.imgShow === imgC) {
           n.flip();
+          if (musicaFlip) {
+            musicaFlip.play();
+          }
 
           if (primaCarta === null) {
             primaCarta = n;
@@ -478,6 +512,9 @@ function handClick() {
   for (let n of carte) {
     if (n.isMouseOver(mx, my) && !n.trovata && !n.girata && n !== primaCarta && n.imgShow === imgC) {
       n.flip();
+      if (musicaFlip) {
+        musicaFlip.play();
+      }
 
       if (primaCarta === null) {
         primaCarta = n;

@@ -19,11 +19,13 @@ class Talpa {
   }
 
 isMouseOver(mx, my) {
-  // Area più grande per facilitare il click
-  let margine = 20; // pixel di tolleranza
-  return mx > this.x - margine && mx < this.x + 100 + margine &&
-         my > this.y - margine && my < this.y + 100 + margine;
-}
+    // Area ingrandita con margine extra
+    let margine = 500; // pixel di tolleranza (aumenta questo per area più grande)
+    return mx > this.x - margine && 
+           mx < this.x + 100 + margine &&
+           my > this.y - margine && 
+           my < this.y + 100 + margine;
+  }
 
   preso(imgHit) {
     this.imgShow = imgHit;
