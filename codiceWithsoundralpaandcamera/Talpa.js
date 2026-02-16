@@ -1,4 +1,4 @@
-class Talpa {
+class talpaSound {
   constructor(img) {
     this.imgNormale = img;
     this.imgShow = img;
@@ -9,6 +9,14 @@ class Talpa {
     this.alpha = 255;
     this.visibile = true;
     this.presa = false;
+
+    this.musicaTalpa();
+  }
+
+  musicaTalpa(){
+    if (talpaSound && talpaSound.isLoaded()) {
+    talpaSound.play();
+    }
   }
 
   show() {
@@ -17,14 +25,11 @@ class Talpa {
     image(this.imgShow, this.x, this.y);
     noTint();
   }
-
-isMouseOver(mx, my) {
-    // Area ingrandita con margine extra
-    let margine = 500; // pixel di tolleranza (aumenta questo per area più grande)
-    return mx > this.x - margine && 
-           mx < this.x + 100 + margine &&
-           my > this.y - margine && 
-           my < this.y + 100 + margine;
+  isMouseOver(mx, my) {
+    // Area più grande per facilitare il click
+    let margine = 20; // pixel di tolleranza
+    return mx > this.x - margine && mx < this.x + 100 + margine &&
+          my > this.y - margine && my < this.y + 100 + margine;
   }
 
   preso(imgHit) {
@@ -35,6 +40,7 @@ isMouseOver(mx, my) {
   fadeOut() {
     if (this.presa) {
       this.alpha -= 10;
+
       if (this.alpha <= 0) {
         this.visibile = false;
       }

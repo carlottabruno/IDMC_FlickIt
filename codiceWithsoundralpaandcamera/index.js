@@ -72,18 +72,17 @@ function preload() {
   musicaBG = loadSound('./Suoni/sottofondo.mp3');
   musicaFlip = loadSound('./Suoni/carte.wav')
 }
-
+//modello mano 
 function modelLoaded() {
   console.log('HandPose model loaded!');
   modelReady = true;
 }
-
+//punti della mano ricevuti 
 function gotHands(results) {
   hands = results;
   if (hands.length > 0) {
     let hand = hands[0];
-    
-    // In ml5@1 latest, i keypoints sono in un array
+    //  i keypoints sono in un array
     if (hand.keypoints && hand.keypoints.length > 8) {
       // Keypoint 8 = punta indice
       handX = map(hand.keypoints[8].x, 0, 640, 0, width);
@@ -100,18 +99,17 @@ function setup() {
   // Posiziona bottone al centro
   bottoneMano.x = width / 2 - bottoneMano.w / 2;
   bottoneMano.y = height / 2 - bottoneMano.h / 2;
-  
   console.log("Setup iniziato...");
   
-  // TROVA E USA TELECAMERA ESTERNA
+
+  // TROVA E USA TELECAMERA ESTERNA - SENZA MICROFONO
   navigator.mediaDevices.enumerateDevices()
     .then(function(devices) {
-      console.log(" Telecamere disponibili:");
+      console.log("📹 Telecamere disponibili:");
       let telecameraEsterna = null;
       devices.forEach(function(device) {
         if (device.kind === 'videoinput') {
           console.log("- " + device.label + " (ID: " + device.deviceId + ")");
-          
           // Cerca telecamera esterna (NON "FaceTime" o "Integrated")
           if (!device.label.includes('FaceTime') && 
               !device.label.includes('Integrated')) {
@@ -119,41 +117,65 @@ function setup() {
           }
         }
       });
-      // Usa telecamera esterna se trovata, altrimenti usa quella di default
+      // IMPORTANTE: Configura constraints per DISABILITARE IL MICROFONO
       let constraints;
       if (telecameraEsterna) {
-        console.log("✅ Uso telecamera esterna!");
+        console.log("Uso telecamera esterna SENZA microfono!");
         constraints = {
           video: {
             deviceId: { exact: telecameraEsterna },
             width: 640,
             height: 480
-          }
+          },
+          audio: false  //  DISABILITA ESPLICITAMENTE IL MICROFONO
         };
       } else {
-        console.log("⚠️ Nessuna telecamera esterna trovata, uso quella predefinita");
-        constraints = VIDEO;
+        console.log(" Uso telecamera predefinita SENZA microfono");
+        constraints = {
+          video: {
+            width: 640,
+            height: 480
+          },
+          audio: false  //  DISABILITA ESPLICITAMENTE IL MICROFONO
+        };
       }
-      // Inizializza video
-      video = createCapture(constraints, function() {
-        console.log("Video pronto!");
-      });
-      video.size(640, 480);
-      video.hide();
-      
+      // Inizializza video con getUserMedia direttamente per maggiore controllo
+      navigator.mediaDevices.getUserMedia(constraints)
+        .then(function(stream) {
+          console.log(" Stream video ottenuto senza audio!");
+          // Verifica che non ci siano tracce audio
+          let audioTracks = stream.getAudioTracks();
+          if (audioTracks.length > 0) {
+            console.warn(" Tracce audio rilevate, le rimuovo...");
+            audioTracks.forEach(track => track.stop());
+          } else {
+            console.log(" Nessuna traccia audio - perfetto!");
+          }
+          // Crea elemento video p5.js dallo stream
+          video = createCapture(VIDEO);
+          video.elt.srcObject = stream;
+          video.size(640, 480);
+          video.hide();
+          console.log("Video pronto!");
 
-      // Inizializza handPose DOPO che il video è pronto
-      handPose = ml5.handPose(video, function() {
-        console.log('HandPose model loaded!');
-        modelReady = true;
-        handPose.detectStart(video, gotHands);
-        console.log("Detection avviata");
-      });
+          // Inizializza handPose DOPO che il video è pronto
+          handPose = ml5.handPose(video, function() {
+            console.log(' HandPose model loaded!');
+            modelReady = true;
+            handPose.detectStart(video, gotHands);
+            console.log(" Detection avviata");
+          });
+        })
+        .catch(function(err) {
+          console.error("Errore nell'accesso alla telecamera:", err);
+          alert("Impossibile accedere alla telecamera. Assicurati di dare i permessi necessari.");
+        });
     })
     .catch(function(err) {
-      console.error("Errore nell'accesso alle telecamere:", err);
+      console.error("Errore nell'enumerazione dei dispositivi:", err);
     });
 }
+
 
 function draw() {
   // SCHEMA 0: Schermata iniziale
@@ -166,21 +188,17 @@ function draw() {
     } 
     return;
   }
-
   // SCHEMA 1: Menu selezione modalità
   if (schema === 1) {
     background(back);
-    
     // Titolo
     fill(255);
     textAlign(CENTER, CENTER);
     textSize(60);
     text("SCEGLI COME GIOCARE", width / 2, height / 2 - 200);
-    
     // Bottone MANO
     let hoverMano = mouseX > bottoneMano.x && mouseX < bottoneMano.x + bottoneMano.w &&
                      mouseY > bottoneMano.y && mouseY < bottoneMano.y + bottoneMano.h;
-    
     // Disegna bottone
     if (hoverMano) {
       fill(100, 200, 100); // Verde chiaro hover
@@ -192,18 +210,15 @@ function draw() {
       strokeWeight(2);
     }
     rect(bottoneMano.x, bottoneMano.y, bottoneMano.w, bottoneMano.h, 20);
-    
     // Testo bottone
     fill(255);
     noStroke();
     textSize(40);
     text(" MANO", bottoneMano.x + bottoneMano.w / 2, bottoneMano.y + bottoneMano.h / 2);
-    
     // Istruzioni
     textSize(20);
     fill(200);
     text("Clicca per giocare con i gesti della mano", width / 2, height / 2 + 100);
-    
     textAlign(LEFT);
     return;
   }
@@ -211,7 +226,6 @@ function draw() {
   // SCHEMA 2: Gioco attivo
   if (schema === 2) {
     background(back);
-
     // VIDEO DEBUG SEMPRE VISIBILE in alto a destra (solo se modalità mano)
     if (modalitaGioco === "mano" && video && video.loadedmetadata) {
       push();
@@ -234,7 +248,6 @@ function draw() {
       }
     }
 
-    // UI
     noTint();
     fill(255);
     textSize(42);
@@ -245,7 +258,7 @@ function draw() {
     // Mostra modalità
     textSize(24);
     fill(200);
-    text("Modalità: " + (modalitaGioco === "mano" ? "🖐️ MANO" : "🖱️ MOUSE"), 50, 100);
+    text("Modalità: " + (modalitaGioco === "mano" ? " MANO" : " MOUSE"), 50, 100);
 
     // Talpa
     if (talpa && talpa.visibile) {
@@ -256,7 +269,7 @@ function draw() {
       fill(255, 255, 0);
       textSize(32);
       textAlign(CENTER);
-      text("⚠️ PRENDI LA TALPA PRIMA! ⚠️", width / 2, height - 50);
+      text(" PRENDI LA TALPA PRIMA! ", width / 2, height - 50);
       textAlign(LEFT);
     }
 
@@ -534,4 +547,4 @@ function handClick() {
 
 
 
-
+    
