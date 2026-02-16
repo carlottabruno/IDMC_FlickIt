@@ -1,10 +1,10 @@
-class talpaSound {
+class Talpa{
   constructor(img) {
     this.imgNormale = img;
     this.imgShow = img;
 
-    this.x = random(width - 600);
-    this.y = random(height - 600);
+    this.x = random(width - 700);
+    this.y = random(height - 700);
 
     this.alpha = 255;
     this.visibile = true;
@@ -27,7 +27,7 @@ class talpaSound {
   }
   isMouseOver(mx, my) {
     // Area più grande per facilitare il click
-    let margine = 20; // pixel di tolleranza
+    let margine = 500; // pixel di tolleranza
     return mx > this.x - margine && mx < this.x + 100 + margine &&
           my > this.y - margine && my < this.y + 100 + margine;
   }

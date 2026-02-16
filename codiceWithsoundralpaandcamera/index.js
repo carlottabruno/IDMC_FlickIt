@@ -71,6 +71,7 @@ function preload() {
   //load soundS
   musicaBG = loadSound('./Suoni/sottofondo.mp3');
   musicaFlip = loadSound('./Suoni/carte.wav')
+  talpaSound = loadSound('./Suoni/talpa.wav')
 }
 //modello mano 
 function modelLoaded() {
