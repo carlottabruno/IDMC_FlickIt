@@ -11,7 +11,7 @@ let punteggio = 0;
 let schema = 0; // 0=start 1=menu 2=gioco 3=vittoria 4=pausa
 
 // Modalità di gioco
-let modalitaGioco = null;
+let modalitaGioco = null; // "mano" | "viso"
 
 // Talpa
 let talpa = null;
@@ -26,7 +26,7 @@ let numCoriandoli = 150;
 // Livelli
 let livello = 1;
 
-// ML5 Hand Tracking
+// Hand Tracking
 let handPose;
 let video;
 let hands = [];
@@ -37,13 +37,35 @@ let modelReady = false;
 // Debounce pizzico — separato per gioco e pausa
 let ultimoClickGioco = 0;
 let ultimoClickPausa = 0;
-const DEBOUNCE_MS    = 600;
+const DEBOUNCE_MS = 600;
 
 // Soglia pizzico in pixel (distanza pollice-indice)
 const SOGLIA_PIZZICO = 35;
 
+// FaceMesh tracking
+let faceMesh;
+let faces = [];
+let faceX = 0; // coordinata naso mappata su canvas (specchiata)
+let faceY = 0;
+let faceMeshReady = false;
+
+// Dwell click (viso): puntare e restare fermo per DWELL_MS millisecondi
+const DWELL_MS        = 2000;   // ms per attivare il click
+const DWELL_MOVE_THR  = 28;     // pixel: se il naso si sposta più del range si resetta
+let dwellStartTime    = 0;      // millis() del momento in cui si è iniziato a puntare
+let dwellTarget       = null;   // riferimento all'oggetto puntato (carta o bottone)
+let dwellX            = 0;      // posizione naso x
+let dwellY            = 0;      //posizione naso y
+let dwellProgress     = 0;      // 0..1 per la barra visiva
+
+// Debounce dwell separato per gioco e pausa
+let ultimoDwellGioco  = 0;
+let ultimoDwellPausa  = 0;
+const DWELL_DEBOUNCE  = 800;    // ms dopo un'attivazione prima di accettarne un'altra
+
 // Bottone menu modalità
-let bottoneMano = { x: 0, y: 0, w: 300, h: 100 };
+let bottoneMano  = { x: 0, y: 0, w: 300, h: 100 };
+let bottoneViso  = { x: 0, y: 0, w: 300, h: 100 };
 
 // Suoni
 let musicaBG;
@@ -53,8 +75,9 @@ let musicaFlip;
 let btnContinua  = { x: 0, y: 0, w: 320, h: 90 };
 let btnMenuPausa = { x: 0, y: 0, w: 320, h: 90 };
 
-// ─────────────────────────────────────────────
+
 function preload() {
+  //loading immagini che occorrono nel gioco
   back        = loadImage('./img/tavolo.png');
   imgC        = loadImage('./img/cartaR.png');
   imgc1       = loadImage('./img/carta1.png');
@@ -81,14 +104,8 @@ function preload() {
   talpaSound  = loadSound('./Suoni/talpa.wav');
 }
 
-// ─────────────────────────────────────────────
+
 // Riceve i dati della mano dal modello ML5.
-// X è specchiata per corrispondere al video
-// mostrato con scale(-1,1) nella preview.
-// Il rilevamento del pizzico avviene QUI,
-// una sola volta per frame video, con debounce
-// separato per gioco (schema 2) e pausa (schema 4).
-// ─────────────────────────────────────────────
 function gotHands(results) {
   hands = results;
   if (hands.length === 0) return;
@@ -96,17 +113,17 @@ function gotHands(results) {
   let hand = hands[0];
   if (!hand.keypoints || hand.keypoints.length <= 8) return;
 
-  // Punta indice — X invertita = specchiata
+  // Punta indice
   handX = map(hand.keypoints[8].x, 0, 640, width, 0);
   handY = map(hand.keypoints[8].y, 0, 480, 0, height);
 
-  // Distanza pollice (4) - indice (8) in coordinate raw
-  let thumb  = hand.keypoints[4];
-  let index  = hand.keypoints[8];
-  let d      = dist(thumb.x, thumb.y, index.x, index.y);
+  // Distanza pollice (4)
+  let thumb   = hand.keypoints[4];
+  let index   = hand.keypoints[8];
+  let d       = dist(thumb.x, thumb.y, index.x, index.y);
   let pizzico = (d < SOGLIA_PIZZICO);
 
-  let ora = millis();
+  let ora = millis();//serve per avere un minimo di debounce tra un click e l'altro pochi milli secondi 
 
   if (pizzico) {
     if (schema === 2 && ora - ultimoClickGioco > DEBOUNCE_MS) {
@@ -120,21 +137,120 @@ function gotHands(results) {
   }
 }
 
-// ─────────────────────────────────────────────
+// Riceve i dati del viso da ml5.faceMesh.
+// Usa il punto del naso (keypoint 1 in FaceMesh)
+function gotFaces(results) {
+  faces = results;
+  if (faces.length === 0) return;
+
+  let face = faces[0];
+  // FaceMesh restituisce keypoints con struttura {x, y, z, name}
+  // Il punto 1 è la punta del naso
+  if (!face.keypoints || face.keypoints.length < 2) return;
+
+  let nose  = face.keypoints[1]; // punta del naso
+  faceX = map(nose.x, 0, 640, width, 0); // specchiato
+  faceY = map(nose.y, 0, 480, 0, height);
+
+  // Gestione dwell solo durante le schede di gioco e pausa
+  if (schema === 2) aggiornaDwell("gioco");
+  if (schema === 4) aggiornaDwell("pausa");
+}
+
+// Logica dwell: avvia/resetta/attiva il click
+function aggiornaDwell(mode) {
+  let ora  = millis();//prende i milli secondi in cui si è fermi in una posizione 
+  let mossa = dist(faceX, faceY, dwellX, dwellY);
+
+  if (mossa > DWELL_MOVE_THR) {
+    // Testa mossa: resetta
+    dwellStartTime = ora;
+    dwellX         = faceX;
+    dwellY         = faceY;
+    dwellTarget    = null;
+    dwellProgress  = 0;
+    return;
+  }
+
+  // Testa ferma: calcola progresso
+  let elapsed   = ora - dwellStartTime;
+  dwellProgress = constrain(elapsed / DWELL_MS, 0, 1);
+
+  if (dwellProgress >= 1) {
+    // Attivazione!
+    if (mode === "gioco" && ora - ultimoDwellGioco > DWELL_DEBOUNCE) {
+      ultimoDwellGioco = ora;
+      dwellClickGioco();
+    }
+    if (mode === "pausa" && ora - ultimoDwellPausa > DWELL_DEBOUNCE) {
+      ultimoDwellPausa = ora;
+      dwellClickPausa();
+    }
+    // Resetta progresso dopo l'attivazione
+    dwellStartTime = ora + DWELL_DEBOUNCE; // pausa prima di poter riprendere
+    dwellProgress  = 0;
+  }
+}
+
+
+// Azione dwell viso durante il gioco (schema 2)
+function dwellClickGioco() {
+  if (bloccaClick) return;
+
+  if (talpa && talpa.visibile && talpa.isMouseOver(faceX, faceY)) {
+    talpa.preso(imgTalpaHit);
+    punteggio += 2;
+    return;
+  }
+  if (talpa && talpa.visibile) return;
+
+  for (let n of carte) {
+    if (n.isMouseOver(faceX, faceY) && !n.trovata && !n.girata &&
+        n !== primaCarta && n.imgShow === imgC) {
+      n.flip();
+      if (musicaFlip) musicaFlip.play();
+      if (primaCarta === null) {
+        primaCarta = n;
+      } else {
+        secondaCarta = n;
+        bloccaClick  = true;
+        controllaMatch();
+      }
+      break;
+    }
+  }
+}
+
+
+// Azione dwell viso nella schermata di pausa
+function dwellClickPausa() {
+  if (isInside(faceX, faceY, btnContinua)) {
+    schema = 2;
+    return;
+  }
+  if (isInside(faceX, faceY, btnMenuPausa)) {
+    resetPartita();
+    schema = 0;
+  }
+}
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   frameRate(60);
   inizializzaCarte(livello);
 
-  bottoneMano.x = width / 2 - bottoneMano.w / 2;
+  // Bottoni menu modalità affiancati
+  bottoneMano.x = width / 2 - bottoneMano.w - 20;
   bottoneMano.y = height / 2 - bottoneMano.h / 2;
+  bottoneViso.x = width / 2 + 20;
+  bottoneViso.y = height / 2 - bottoneViso.h / 2;
 
   btnContinua.x  = width / 2 - btnContinua.w / 2;
   btnContinua.y  = height / 2 - 20;
   btnMenuPausa.x = width / 2 - btnMenuPausa.w / 2;
   btnMenuPausa.y = height / 2 + 110;
 
-  // Telecamera senza microfono
+  // Avvia la webcam (senza microfono)
   navigator.mediaDevices.enumerateDevices()
     .then(function(devices) {
       let telecameraEsterna = null;
@@ -159,38 +275,44 @@ function setup() {
           video.size(640, 480);
           video.hide();
 
+          //  HandPose
           handPose = ml5.handPose(video, function() {
             modelReady = true;
             handPose.detectStart(video, gotHands);
             console.log("HandPose pronto");
+          });
+
+          // FaceMesh
+          faceMesh = ml5.faceMesh({ maxFaces: 1, flipped: false }, function() {
+            faceMeshReady = true;
+            faceMesh.detectStart(video, gotFaces);
+            console.log("FaceMesh pronto");
           });
         })
         .catch(err => alert("Errore telecamera: " + err));
     });
 }
 
-// ─────────────────────────────────────────────
 // Restituisce true se il punto (px,py) è dentro
 // il rettangolo btn {x,y,w,h}
-// ─────────────────────────────────────────────
 function isInside(px, py, btn) {
   return px > btn.x && px < btn.x + btn.w &&
          py > btn.y && py < btn.y + btn.h;
 }
 
-// ─────────────────────────────────────────────
 // Disegna un bottone evidenziando l'hover
-// sia per il mouse sia per la mano.
-// Restituisce true se c'è hover (per il cursore).
-// ─────────────────────────────────────────────
+// (mouse, mano o naso).
 function disegnaBottone(btn, testo, coloreNorm, coloreHover) {
   let hoverMouse = isInside(mouseX, mouseY, btn);
   let hoverMano  = isInside(handX,  handY,  btn);
-  let hover      = hoverMouse || hoverMano;
+  let hoverViso  = isInside(faceX,  faceY,  btn);
+  let hover      = hoverMouse || hoverMano || hoverViso;
 
-  // Bordo giallo quando la mano è sopra il bottone
-  if (hoverMano) {
-    stroke(255, 230, 0);
+  if (hoverViso) {
+    stroke(0, 200, 255);   // bordo azzurro per il viso
+    strokeWeight(6);
+  } else if (hoverMano) {
+    stroke(255, 230, 0);   // bordo giallo per la mano
     strokeWeight(6);
   } else {
     stroke(255);
@@ -206,12 +328,28 @@ function disegnaBottone(btn, testo, coloreNorm, coloreHover) {
   textSize(36);
   text(testo, btn.x + btn.w / 2, btn.y + btn.h / 2);
 
+  // Barra dwell sul bottone (solo se modalità viso)
+  if (modalitaGioco === "viso" && hoverViso && dwellProgress > 0) {
+    disegnaDwellBar(btn.x, btn.y + btn.h - 12, btn.w, dwellProgress);
+  }
+
   return hover;
 }
 
-// ─────────────────────────────────────────────
+
+// Disegna la barra di caricamento dwell
+function disegnaDwellBar(x, y, w, progress) {
+  // Sfondo barra
+  fill(50, 50, 50, 180);
+  noStroke();
+  rect(x, y, w, 10, 5);
+  // Riempimento
+  let col = lerpColor(color(0, 180, 255), color(0, 255, 120), progress);
+  fill(col);
+  rect(x, y, w * progress, 10, 5);
+}
+
 // Azione pizzico mano nella schermata di pausa
-// ─────────────────────────────────────────────
 function handClickPausa() {
   if (isInside(handX, handY, btnContinua)) {
     schema = 2;
@@ -232,6 +370,9 @@ function resetPartita() {
   bloccaClick   = false;
   talpa         = null;
   modalitaGioco = null;
+  dwellProgress  = 0;
+  dwellStartTime = 0;
+  dwellTarget    = null;
   inizializzaCarte(1);
 }
 
@@ -241,8 +382,10 @@ function draw() {
   // ── SCHEMA 4: PAUSA ──────────────────────────
   if (schema === 4) {
     background(20, 20, 40, 230);
-      // video visibile anche in pausa
-    if (modalitaGioco === "mano" && video && video.loadedmetadata) {
+
+    // Video in alto a destra (solo modalità che usano la cam)
+    if ((modalitaGioco === "mano" || modalitaGioco === "viso") &&
+        video && video.loadedmetadata) {
       push();
       translate(width - 210, 10);
       scale(-1, 1);
@@ -271,12 +414,14 @@ function draw() {
 
     cursor(hC || hM ? HAND : ARROW);
 
-    // Cursore mano visibile in pausa
+    // Cursori specifici per modalità
     if (modalitaGioco === "mano") {
       mostraHandTracking();
+    } else if (modalitaGioco === "viso") {
+      mostraFaceTracking();
     }
 
-    return; // non eseguire gli altri schemi nello stesso frame
+    return;
   }
 
   // ── SCHEMA 0: START ──────────────────────────
@@ -298,21 +443,39 @@ function draw() {
     textSize(60);
     text("SCEGLI COME GIOCARE", width / 2, height / 2 - 200);
 
-    let hover = isInside(mouseX, mouseY, bottoneMano);
-    fill(hover ? color(100, 200, 100) : color(50, 150, 50));
-    stroke(hover ? 255 : 200);
-    strokeWeight(hover ? 4 : 2);
+    // ── Bottone MANO ──
+    let hoverMano = isInside(mouseX, mouseY, bottoneMano);
+    fill(hoverMano ? color(100, 200, 100) : color(50, 150, 50));
+    stroke(hoverMano ? 255 : 200);
+    strokeWeight(hoverMano ? 4 : 2);
     rect(bottoneMano.x, bottoneMano.y, bottoneMano.w, bottoneMano.h, 20);
-
     fill(255);
     noStroke();
     textSize(40);
     text("  MANO", bottoneMano.x + bottoneMano.w / 2,
                      bottoneMano.y + bottoneMano.h / 2);
+
+    // ── Bottone VISO ──
+    let hoverViso = isInside(mouseX, mouseY, bottoneViso);
+    fill(hoverViso ? color(100, 170, 255) : color(30, 100, 220));
+    stroke(hoverViso ? 255 : 200);
+    strokeWeight(hoverViso ? 4 : 2);
+    rect(bottoneViso.x, bottoneViso.y, bottoneViso.w, bottoneViso.h, 20);
+    fill(255);
+    noStroke();
+    textSize(40);
+    text("  VISO", bottoneViso.x + bottoneViso.w / 2,
+                    bottoneViso.y + bottoneViso.h / 2);
+
+    // Descrizione
     fill(200);
     textSize(20);
     text("Clicca per giocare con i gesti della mano",
-         width / 2, height / 2 + 100);
+         bottoneMano.x + bottoneMano.w / 2, bottoneMano.y + bottoneMano.h + 30);
+    text("Punta con la testa e aspetta per girare la carta",
+         bottoneViso.x + bottoneViso.w / 2, bottoneViso.y + bottoneViso.h + 30);
+
+    cursor((hoverMano || hoverViso) ? HAND : ARROW);
     return;
   }
 
@@ -321,7 +484,8 @@ function draw() {
     background(back);
 
     // Preview video specchiata in alto a destra
-    if (modalitaGioco === "mano" && video && video.loadedmetadata) {
+    if ((modalitaGioco === "mano" || modalitaGioco === "viso") &&
+        video && video.loadedmetadata) {
       push();
       translate(width - 210, 10);
       scale(-1, 1);
@@ -329,7 +493,7 @@ function draw() {
       pop();
     }
 
-    // Carte
+    // ── Disegna carte ──
     for (let n of carte) {
       if (!n.trovata) {
         if (n.daRimuovere) {
@@ -339,6 +503,13 @@ function draw() {
           noTint();
         }
         image(n.imgShow, n.x, n.y);
+
+        // Barra dwell sulla carta puntata (solo modalità viso)
+        if (modalitaGioco === "viso" && !n.girata && !n.daRimuovere &&
+            n.imgShow === imgC && n !== primaCarta &&
+            n.isMouseOver(faceX, faceY) && dwellProgress > 0) {
+          disegnaDwellBar(n.x, n.y + n.h - 12, n.w, dwellProgress);
+        }
       }
     }
 
@@ -351,7 +522,16 @@ function draw() {
     text("Livello: " + livello, 800, 50);
     textSize(24);
     fill(200);
-    text("Modalità:  MANO", 50, 100);
+    text("Modalità: " + (modalitaGioco === "viso" ? " VISO" : "  MANO"),
+         50, 100);
+
+    // Istruzioni dwell
+    if (modalitaGioco === "viso") {
+      fill(180, 220, 255);
+      textSize(18);
+      text("Punta una carta con il naso e aspetta " + (DWELL_MS / 1000).toFixed(1) + "s per girarla",
+           50, height - 30);
+    }
 
     // Talpa
     if (talpa && talpa.visibile) {
@@ -363,8 +543,11 @@ function draw() {
       text(" PRENDI LA TALPA PRIMA!  ", width / 2, height - 50);
     }
 
+    // Cursori
     if (modalitaGioco === "mano") {
       mostraHandTracking();
+    } else if (modalitaGioco === "viso") {
+      mostraFaceTracking();
     }
     return;
   }
@@ -387,6 +570,42 @@ function draw() {
 }
 
 // ─────────────────────────────────────────────
+// Disegna il cursore e i punti del viso (naso)
+// ─────────────────────────────────────────────
+function mostraFaceTracking() {
+  fill(255);
+  noStroke();
+  textSize(16);
+  textAlign(LEFT);
+  text("FaceMesh: " + (faceMeshReady ? "✓" : "caricamento..."), 10, height - 60);
+  text("Volti: " + faces.length, 10, height - 40);
+  text("X:" + int(faceX) + "  Y:" + int(faceY), 10, height - 20);
+
+  if (faces.length > 0) {
+    // Disegna solo il naso come cursore
+    // Cursore: cerchio azzurro con anello di progresso dwell
+    let cx = faceX;
+    let cy = faceY;
+
+    // Anello di progresso dwell
+    if (dwellProgress > 0) {
+      noFill();
+      stroke(0, 200, 255, 200);
+      strokeWeight(5);
+      let angolo = TWO_PI * dwellProgress;
+      arc(cx, cy, 52, 52, -HALF_PI, -HALF_PI + angolo);
+    }
+
+    // Cerchio cursore
+    fill(0, 180, 255, 180);
+    stroke(255);
+    strokeWeight(3);
+    circle(cx, cy, 34);
+    noStroke();
+  }
+}
+
+// ─────────────────────────────────────────────
 // Disegna punti mano e cursore indice (specchiati)
 // ─────────────────────────────────────────────
 function mostraHandTracking() {
@@ -403,7 +622,7 @@ function mostraHandTracking() {
     if (hand.keypoints) {
       for (let j = 0; j < hand.keypoints.length; j++) {
         let kp = hand.keypoints[j];
-        let kx = map(kp.x, 0, 640, width, 0); // specchiato
+        let kx = map(kp.x, 0, 640, width, 0);
         let ky = map(kp.y, 0, 480, 0, height);
         fill(0, 255, 0);
         noStroke();
@@ -534,9 +753,19 @@ function mouseClicked() {
       modalitaGioco = "mano";
       schema = 2;
     }
+    if (isInside(mouseX, mouseY, bottoneViso)) {
+      modalitaGioco = "viso";
+      // Resetta lo stato dwell all'avvio della modalità viso
+      dwellStartTime = millis();
+      dwellX         = faceX;
+      dwellY         = faceY;
+      dwellProgress  = 0;
+      schema = 2;
+    }
     return;
   }
-  if (schema === 2 && modalitaGioco !== "mano") {
+  // Modalità mouse (fallback, attiva solo se modalitaGioco NON è mano o viso)
+  if (schema === 2 && modalitaGioco !== "mano" && modalitaGioco !== "viso") {
     if (bloccaClick) return;
     if (talpa && talpa.visibile && talpa.isMouseOver(mouseX, mouseY)) {
       talpa.preso(imgTalpaHit); punteggio += 2; return;
@@ -560,8 +789,16 @@ function mouseClicked() {
 // ─────────────────────────────────────────────
 function keyPressed() {
   if (key === ' ') {
-    if (schema === 2) schema = 4;
-    else if (schema === 4) schema = 2;
+    if (schema === 2) {
+      schema = 4;
+      // Resetta dwell per evitare attivazioni accidentali in pausa
+      dwellProgress  = 0;
+      dwellStartTime = millis() + 500;
+    } else if (schema === 4) {
+      schema = 2;
+      dwellProgress  = 0;
+      dwellStartTime = millis() + 500;
+    }
   }
 }
 
