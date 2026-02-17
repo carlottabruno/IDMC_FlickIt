@@ -26,6 +26,9 @@ Questo file README rappresenta una **documentazione iniziale**, che verrà ampli
 * **p5.js** per lo sviluppo del gioco
 * **ml5.js** : libreria di machine learning per JavaScript che permette il riconoscimento della mano tramite webcam, consentendo di utilizzare i movimenti e la chiusura della mano come sistema di controllo
   all’interno del gioco
+  tecnologie di Ml5.js :
+  **handtracking**: permette di tracciare diversi punti della mano
+  **facemesh**: permette di tracciare diversi punti del viso tra cui la punta del naso che abbiamo utilizzato all'interno del codice 
 
 L’interazione con il gioco avviene **con mouse o tastiera** ed anche tramite **la mano** dell’utente.
 
