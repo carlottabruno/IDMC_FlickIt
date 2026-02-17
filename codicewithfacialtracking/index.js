@@ -361,7 +361,6 @@ function handClickPausa() {
   }
 }
 
-// ─────────────────────────────────────────────
 function resetPartita() {
   livello       = 1;
   punteggio     = 0;
@@ -376,10 +375,9 @@ function resetPartita() {
   inizializzaCarte(1);
 }
 
-// ─────────────────────────────────────────────
 function draw() {
 
-  // ── SCHEMA 4: PAUSA ──────────────────────────
+  // SCHEMA 4: PAUSA
   if (schema === 4) {
     background(20, 20, 40, 230);
 
@@ -424,7 +422,7 @@ function draw() {
     return;
   }
 
-  // ── SCHEMA 0: START ──────────────────────────
+  // SCHEMA 0: START 
   if (schema === 0) {
     background(start);
     if (musicaBG && !musicaBG.isPlaying()) {
@@ -434,7 +432,7 @@ function draw() {
     return;
   }
 
-  // ── SCHEMA 1: MENU MODALITÀ ──────────────────
+  // SCHEMA 1: MENU MODALITÀ 
   if (schema === 1) {
     background(back);
     fill(255);
@@ -443,7 +441,7 @@ function draw() {
     textSize(60);
     text("SCEGLI COME GIOCARE", width / 2, height / 2 - 200);
 
-    // ── Bottone MANO ──
+    // Bottone MANO 
     let hoverMano = isInside(mouseX, mouseY, bottoneMano);
     fill(hoverMano ? color(100, 200, 100) : color(50, 150, 50));
     stroke(hoverMano ? 255 : 200);
@@ -455,7 +453,7 @@ function draw() {
     text("  MANO", bottoneMano.x + bottoneMano.w / 2,
                      bottoneMano.y + bottoneMano.h / 2);
 
-    // ── Bottone VISO ──
+    // Bottone VISO 
     let hoverViso = isInside(mouseX, mouseY, bottoneViso);
     fill(hoverViso ? color(100, 170, 255) : color(30, 100, 220));
     stroke(hoverViso ? 255 : 200);
@@ -473,13 +471,13 @@ function draw() {
     text("Clicca per giocare con i gesti della mano",
          bottoneMano.x + bottoneMano.w / 2, bottoneMano.y + bottoneMano.h + 30);
     text("Punta con la testa e aspetta per girare la carta",
-         bottoneViso.x + bottoneViso.w / 2, bottoneViso.y + bottoneViso.h + 30);
+         bottoneViso.x + bottoneViso.w / 2+60, bottoneViso.y + bottoneViso.h + 30);
 
     cursor((hoverMano || hoverViso) ? HAND : ARROW);
     return;
   }
 
-  // ── SCHEMA 2: GIOCO ──────────────────────────
+  // SCHEMA 2: GIOCO 
   if (schema === 2) {
     background(back);
 
@@ -493,7 +491,7 @@ function draw() {
       pop();
     }
 
-    // ── Disegna carte ──
+    // Disegna carte
     for (let n of carte) {
       if (!n.trovata) {
         if (n.daRimuovere) {
@@ -552,7 +550,7 @@ function draw() {
     return;
   }
 
-  // ── SCHEMA 3: VITTORIA ───────────────────────
+  // SCHEMA 3: VITTORIA
   if (schema === 3) {
     background(back);
     for (let c of coriandoli) {
@@ -569,9 +567,8 @@ function draw() {
   }
 }
 
-// ─────────────────────────────────────────────
 // Disegna il cursore e i punti del viso (naso)
-// ─────────────────────────────────────────────
+
 function mostraFaceTracking() {
   fill(255);
   noStroke();
@@ -583,7 +580,7 @@ function mostraFaceTracking() {
 
   if (faces.length > 0) {
     // Disegna solo il naso come cursore
-    // Cursore: cerchio azzurro con anello di progresso dwell
+    // Cursore: cerchio azzurro con anello di progresso del tempo 
     let cx = faceX;
     let cy = faceY;
 
@@ -605,9 +602,8 @@ function mostraFaceTracking() {
   }
 }
 
-// ─────────────────────────────────────────────
+
 // Disegna punti mano e cursore indice (specchiati)
-// ─────────────────────────────────────────────
 function mostraHandTracking() {
   fill(255);
   noStroke();
@@ -640,7 +636,7 @@ function mostraHandTracking() {
   }
 }
 
-// ─────────────────────────────────────────────
+//inizializza le carte in base al livello inserisce le carte e il loro numero 
 function inizializzaCarte(lv) {
   carte = [];
   if (lv === 1) {
@@ -669,7 +665,7 @@ function inizializzaCarte(lv) {
   }
 }
 
-// ─────────────────────────────────────────────
+// constrolla se la prima carta girata e la seconda hanno lo stesso valore 
 function controllaMatch() {
   if (primaCarta.val === secondaCarta.val) {
     punteggio++;
@@ -686,13 +682,13 @@ function controllaMatch() {
     }, 2000);
   }
 }
-
+//resetta le variabili per passare alla prossima mossa 
 function resetScelte() {
   primaCarta   = null;
   secondaCarta = null;
   bloccaClick  = false;
 }
-
+//controlla se si hanno trovate tutte le carte e il gioco e finito oppure solo il livello 
 function controllaVittoria() {
   let tutteTrovate = carte.every(n => n.trovata);
   if (tutteTrovate) {
@@ -708,9 +704,8 @@ function controllaVittoria() {
   }
 }
 
-// ─────────────────────────────────────────────
-// Click mano durante il gioco (schema 2)
-// ─────────────────────────────────────────────
+
+// Click mano durante il gioco
 function handClick() {
   if (bloccaClick) return;
 
@@ -738,9 +733,7 @@ function handClick() {
   }
 }
 
-// ─────────────────────────────────────────────
 // Click mouse
-// ─────────────────────────────────────────────
 function mouseClicked() {
   if (schema === 4) {
     if (isInside(mouseX, mouseY, btnContinua))  { schema = 2; return; }
@@ -784,9 +777,7 @@ function mouseClicked() {
   }
 }
 
-// ─────────────────────────────────────────────
 // Tasti
-// ─────────────────────────────────────────────
 function keyPressed() {
   if (key === ' ') {
     if (schema === 2) {
