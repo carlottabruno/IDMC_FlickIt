@@ -11,7 +11,7 @@ let punteggio = 0;
 let schema = 0; // 0=start 1=menu 2=gioco 3=vittoria 4=pausa
 
 // Modalità di gioco
-let modalitaGioco = null; // "mano" | "viso"
+let modalitaGioco = null; // "mano"  "viso"
 
 // Talpa
 let talpa = null;
