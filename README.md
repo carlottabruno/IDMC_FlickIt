@@ -45,6 +45,9 @@ Attraverso la creazione e l’analisi di **punti di riferimento sulla mano**, il
 
 La **chiusura della mano** viene interpretata come un **click**, permettendo all’utente di interagire con il gioco in modo naturale e intuitivo.
 
+In un'altra modlità selezionabile prima che il gioco inizi, si può utilizzare come cursore il naso.
+Se il naso resta fermo per un totale di tempo la carta si gira, stessa funzione per colpire la talpa.
+
 ---
 
 ## Gioco: Memory matematico
@@ -71,18 +74,19 @@ Questo gioco permette di allenare:
 * Coordinazione
 * Controllo del movimento
 
-### Livelli del memory
+### Livelli del gioco
 
-* **Livello 1**: 10 carte (difficoltà bassa)
-* **Livello 2**: 20 carte (difficoltà media)
-* **Livello 3**: 30 carte (difficoltà alta)
+* **Livello 1**: 4 carte e 2 talpe (difficoltà bassa)
+* **Livello 2**: 6 carte e 3 talpe carte (difficoltà media)
+* **Livello 3**: 10 carte e 5 talpe (difficoltà alta)
 
 ### Interazione
 
 * L’utente sposta la mano sopra una carta
 * Un cursore indica quando la mano è sopra una carta selezionabile
 * Chiudendo la mano, la carta viene girata
-
+* Attraverso un'altra modalità si può usare come cursore il naso
+  
 ## Stato del progetto
 
 Il progetto è **in fase di sviluppo**.
