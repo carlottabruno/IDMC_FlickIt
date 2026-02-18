@@ -75,7 +75,6 @@ let musicaFlip;
 let btnContinua  = { x: 0, y: 0, w: 0, h: 0 };
 let btnMenuPausa = { x: 0, y: 0, w: 0, h: 0 };
 
-// --- SCALA RESPONSIVE ---
 // Restituisce una dimensione scalata rispetto alla dimensione di riferimento 1440x900
 function sx(v) { return v * (width  / 1440); }
 function sy(v) { return v * (height / 900);  }
@@ -310,7 +309,6 @@ function isInside(px, py, btn) {
 }
 
 // Disegna un bottone evidenziando l'hover
-// (mouse, mano o naso).
 function disegnaBottone(btn, testo, coloreNorm, coloreHover) {
   let hoverMouse = isInside(mouseX, mouseY, btn);
   let hoverMano  = isInside(handX,  handY,  btn);
@@ -399,7 +397,7 @@ function draw() {
     text("Livello " + livello + " · Punteggio " + punteggio, width / 2, height / 2 - sy(95));
 
     let hC = disegnaBottone(btnContinua,  "▶ CONTINUA", color(50,150,50),  color(80,220,80));
-    let hM = disegnaBottone(btnMenuPausa, "MENU",       color(150,50,50),  color(220,80,80));
+    let hM = disegnaBottone(btnMenuPausa, "MENU",color(150,50,50),  color(220,80,80));
 
     fill(160); noStroke(); textSize(ss(20));
     text("SPAZIO per riprendere", width / 2, height / 2 + sy(240));
@@ -453,7 +451,6 @@ function draw() {
       bottoneMano.x + bottoneMano.w / 2, bottoneMano.y + bottoneMano.h + sy(30));
     text("Punta con la testa e aspetta per girare la carta",
       bottoneViso.x + bottoneViso.w / 2 + sx(60), bottoneViso.y + bottoneViso.h + sy(30));
-
     cursor((hoverMano || hoverViso) ? HAND : ARROW);
     return;
   }
@@ -500,14 +497,6 @@ function draw() {
 
     textSize(ss(24));
     fill(200);
-    /*text("Modalità: " + (modalitaGioco === "viso" ? " VISO" : " MANO"), 50, 100);*/
-
-    // Istruzioni dwell
-    /* if (modalitaGioco === "viso") {
-      fill(180, 220, 255);
-      textSize(ss(18));
-      text("Punta una carta con il naso e aspetta " + (DWELL_MS / 1000).toFixed(1) + "s per girarla", 50, height - 30);
-    }*/
 
     // Talpa
     if (talpa && talpa.visibile) {
@@ -520,7 +509,7 @@ function draw() {
     }
 
     // Cursori
-    if (modalitaGioco === "mano")      mostraHandTracking();
+    if (modalitaGioco === "mano") mostraHandTracking();
     else if (modalitaGioco === "viso") mostraFaceTracking();
     return;
   }
@@ -541,8 +530,8 @@ function draw() {
 function mostraFaceTracking() {
   fill(255); noStroke(); textSize(ss(16)); textAlign(LEFT);
   text("FaceMesh: " + (faceMeshReady ? "✓" : "loading..."), sx(10), height - sy(60));
-  text("Volti: " + faces.length,                            sx(10), height - sy(40));
-  text("X:" + int(faceX) + " Y:" + int(faceY),             sx(10), height - sy(20));
+  text("Volti: " + faces.length,sx(10), height - sy(40));
+  text("X:" + int(faceX) + " Y:" + int(faceY),sx(10), height - sy(20));
 
   if (faces.length > 0) {
     // Disegna solo il naso come cursore
@@ -556,7 +545,6 @@ function mostraFaceTracking() {
       let angolo = TWO_PI * dwellProgress;
       arc(cx, cy, ss(52), ss(52), -HALF_PI, -HALF_PI + angolo);
     }
-
     // Cerchio cursore
     fill(0, 180, 255, 180); stroke(255); strokeWeight(3);
     circle(cx, cy, ss(34));
@@ -666,7 +654,7 @@ function inizializzaCarte(lv) {
   }
 }
 
-// constrolla se la prima carta girata e la seconda hanno lo stesso valore
+// controlla se la prima carta girata e la seconda hanno lo stesso valore
 function controllaMatch() {
   if (primaCarta.val === secondaCarta.val) {
     punteggio++;
