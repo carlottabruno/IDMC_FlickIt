@@ -516,8 +516,8 @@ function draw() {
     noStroke();
     textSize(42);
     textAlign(LEFT);
-    text("Punteggio: " + punteggio,width/2,10);
-    text("Livello: " + livello, width/2, 20);
+    text("Punteggio: " + punteggio,windowWidth/2,10);
+    text("Livello: " + livello,windowWidth/2, 50);
     textSize(24);
     fill(200);
     /*text("Modalità: " + (modalitaGioco === "viso" ? " VISO" : "  MANO"),
