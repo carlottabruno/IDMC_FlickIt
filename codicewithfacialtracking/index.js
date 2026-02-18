@@ -640,7 +640,7 @@ function mostraHandTracking() {
 function inizializzaCarte(lv) {
   carte = [];
   if (lv === 1) {
-    carte.push(new Carta(width/4, height+200, imgC, 7,  imgc1));
+    carte.push(new Carta(500, 200, imgC, 7,  imgc1));
     carte.push(new Carta(700, 200, imgC, 5,  imgc4));
     carte.push(new Carta(500, 450, imgC, 5,  imgc3));
     carte.push(new Carta(700, 450, imgC, 7,  imgc2));
