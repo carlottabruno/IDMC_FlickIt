@@ -109,7 +109,7 @@ function preload() {
   musicaFlip  = loadSound('./Suoni/carte.wav');
   talpaSound  = loadSound('./Suoni/talpa.wav');
   talpaSoundslap=loadSound('./Suoni/slap.wav');
-  musicaVittoria=loadSound('./Suoni/vittoria.mp3');
+  musicaVittoria = loadSound('./Suoni/vittoria.mp3');
 }
 
 
@@ -117,7 +117,7 @@ function preload() {
 function musicaVit(){
   if(musicaVittoria && musicaVittoria.isLoaded()){
     musicaBG.pause();
-   
+    musicaVit.loop();
   }
 }
 
