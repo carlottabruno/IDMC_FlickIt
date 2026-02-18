@@ -403,7 +403,7 @@ function draw() {
          width / 2, height / 2 - 95);
 
     let hC = disegnaBottone(btnContinua,  "▶  CONTINUA", color(50,150,50),  color(80,220,80));
-    let hM = disegnaBottone(btnMenuPausa, "  MENU",    color(150,50,50),  color(220,80,80));
+    let hM = disegnaBottone(btnMenuPausa, "MENU",    color(150,50,50),  color(220,80,80));
 
     fill(160);
     noStroke();
@@ -516,12 +516,12 @@ function draw() {
     noStroke();
     textSize(42);
     textAlign(LEFT);
-    text("Punteggio: " + punteggio,width/2,height+10);
-    text("Livello: " + livello, width/2, height+20);
+    text("Punteggio: " + punteggio,width/2,10);
+    text("Livello: " + livello, width/2, 20);
     textSize(24);
     fill(200);
-    text("Modalità: " + (modalitaGioco === "viso" ? " VISO" : "  MANO"),
-         50, 100);
+    /*text("Modalità: " + (modalitaGioco === "viso" ? " VISO" : "  MANO"),
+         50, 100);*/
 
     // Istruzioni dwell
    /* if (modalitaGioco === "viso") {
@@ -640,7 +640,7 @@ function mostraHandTracking() {
 function inizializzaCarte(lv) {
   carte = [];
   if (lv === 1) {
-    carte.push(new Carta(500, 200, imgC, 7,  imgc1));
+    carte.push(new Carta(width/4, height+200, imgC, 7,  imgc1));
     carte.push(new Carta(700, 200, imgC, 5,  imgc4));
     carte.push(new Carta(500, 450, imgC, 5,  imgc3));
     carte.push(new Carta(700, 450, imgC, 7,  imgc2));
