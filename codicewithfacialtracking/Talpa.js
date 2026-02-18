@@ -11,11 +11,17 @@ class Talpa{
     this.presa = false;
 
     this.musicaTalpa();
+    
   }
 
   musicaTalpa(){
     if (talpaSound && talpaSound.isLoaded()) {
     talpaSound.play();
+    }
+  }
+  musicaTalpaout(){
+    if(talpaSoundslap && talpaSoundslap.isLoaded()){
+      talpaSoundslap.play();
     }
   }
 
@@ -35,6 +41,7 @@ class Talpa{
   preso(imgHit) {
     this.imgShow = imgHit;
     this.presa = true;
+    this.musicaTalpaout();
   }
 
   fadeOut() {
