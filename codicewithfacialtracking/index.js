@@ -109,13 +109,13 @@ function preload() {
   musicaFlip  = loadSound('./Suoni/carte.wav');
   talpaSound  = loadSound('./Suoni/talpa.wav');
   talpaSoundslap=loadSound('./Suoni/slap.wav');
-  musicaVittoria = loadSound('./Suoni/vittoria.mp3');
+  musicaVittoria = loadSound('./Suoni/vittoria.wav');
 }
 
 
 //musica schermata della vittoria 
 function musicaVit(){
-  if(musicaVittoria && musicaVittoria.isLoaded()){
+  if(musicaVittoria && musicaVittoria.isLoaded() && !musicaVittoria.isPlaying() && schema === 3){
     musicaBG.pause();
     musicaVittoria.loop();
   }
