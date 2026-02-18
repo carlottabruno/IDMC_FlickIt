@@ -102,7 +102,7 @@ function preload() {
   imgc14      = loadImage('./img/carta14.png');
   imgc15      = loadImage('./img/carta15.png');
   imgc16      = loadImage('./img/carta16.png');
-  start       = loadImage('./img/start.jpg');
+  start       = loadImage('./img/start.png');
   imgTalpa    = loadImage('./img/talpa.png');
   imgTalpaHit = loadImage('./img/coppa.png');
   musicaBG    = loadSound('./Suoni/sottofondo.mp3');
@@ -117,7 +117,7 @@ function preload() {
 function musicaVit(){
   if(musicaVittoria && musicaVittoria.isLoaded() && !musicaVittoria.isPlaying() && schema === 3){
     musicaBG.pause();
-    musicaVittoria.loop();
+    musicaVittoria.play();
   }
 }
 
@@ -463,7 +463,7 @@ function draw() {
     text("Clicca per giocare con i gesti della mano",
       bottoneMano.x + bottoneMano.w / 2, bottoneMano.y + bottoneMano.h + sy(30));
     text("Punta con la testa e aspetta per girare la carta",
-      bottoneViso.x + bottoneViso.w / 2 + sx(60), bottoneViso.y + bottoneViso.h + sy(30));
+      bottoneViso.x + bottoneViso.w / 2 + sx(0), bottoneViso.y + bottoneViso.h + sy(30));
     cursor((hoverMano || hoverViso) ? HAND : ARROW);
     return;
   }
