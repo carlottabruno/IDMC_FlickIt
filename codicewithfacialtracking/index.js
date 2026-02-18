@@ -450,7 +450,7 @@ function draw() {
     fill(255);
     noStroke();
     textSize(40);
-    text("  MANO", bottoneMano.x + bottoneMano.w / 2,
+    text("MANO", bottoneMano.x + bottoneMano.w / 2,
                      bottoneMano.y + bottoneMano.h / 2);
 
     // Bottone VISO 
@@ -462,7 +462,7 @@ function draw() {
     fill(255);
     noStroke();
     textSize(40);
-    text("  VISO", bottoneViso.x + bottoneViso.w / 2,
+    text("VISO", bottoneViso.x + bottoneViso.w / 2,
                     bottoneViso.y + bottoneViso.h / 2);
 
     // Descrizione
@@ -516,20 +516,20 @@ function draw() {
     noStroke();
     textSize(42);
     textAlign(LEFT);
-    text("Punteggio: " + punteggio, 50, 50);
-    text("Livello: " + livello, 800, 50);
+    text("Punteggio: " + punteggio,width/2,height+10);
+    text("Livello: " + livello, width/2, height+20);
     textSize(24);
     fill(200);
     text("Modalità: " + (modalitaGioco === "viso" ? " VISO" : "  MANO"),
          50, 100);
 
     // Istruzioni dwell
-    if (modalitaGioco === "viso") {
+   /* if (modalitaGioco === "viso") {
       fill(180, 220, 255);
       textSize(18);
       text("Punta una carta con il naso e aspetta " + (DWELL_MS / 1000).toFixed(1) + "s per girarla",
            50, height - 30);
-    }
+    }*/
 
     // Talpa
     if (talpa && talpa.visibile) {
@@ -538,7 +538,7 @@ function draw() {
       fill(255, 255, 0);
       textSize(32);
       textAlign(CENTER);
-      text(" PRENDI LA TALPA PRIMA!  ", width / 2, height - 50);
+      text("PRENDI LA TALPA PRIMA!", width / 2, height - 50);
     }
 
     // Cursori
@@ -561,7 +561,7 @@ function draw() {
     noStroke();
     textAlign(CENTER, CENTER);
     textSize(80);
-    text("HAI VINTO! ", width / 2, height / 2 - 100);
+    text("HAI VINTO!", width / 2, height / 2 - 100);
     textSize(40);
     text("Punteggio finale: " + punteggio, width / 2, height / 2);
   }
@@ -574,7 +574,7 @@ function mostraFaceTracking() {
   noStroke();
   textSize(16);
   textAlign(LEFT);
-  text("FaceMesh: " + (faceMeshReady ? "✓" : "caricamento..."), 10, height - 60);
+  text("FaceMesh: " + (faceMeshReady ? "✓" : "loading..."), 10, height - 60);
   text("Volti: " + faces.length, 10, height - 40);
   text("X:" + int(faceX) + "  Y:" + int(faceY), 10, height - 20);
 
@@ -609,7 +609,7 @@ function mostraHandTracking() {
   noStroke();
   textSize(16);
   textAlign(LEFT);
-  text("Model: " + (modelReady ? "✓" : "caricamento..."), 10, height - 60);
+  text("Model: " + (modelReady ? "✓" : "loading..."), 10, height - 60);
   text("Hands: " + hands.length, 10, height - 40);
   text("X:" + int(handX) + "  Y:" + int(handY), 10, height - 20);
 
@@ -792,10 +792,3 @@ function keyPressed() {
     }
   }
 }
-
-
-
-
-
-
-    
