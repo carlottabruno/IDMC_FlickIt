@@ -18,6 +18,7 @@ let talpa = null;
 let imgTalpa;
 let imgTalpaHit;
 let talpaSound;
+let talpaSoundslap;
 
 // Coriandoli
 let coriandoli = [];
@@ -70,6 +71,7 @@ let bottoneViso = { x: 0, y: 0, w: 0, h: 0 };
 // Suoni
 let musicaBG;
 let musicaFlip;
+let musicaVittoria;
 
 // Bottoni pausa — calcolati in ricalcolaLayout()
 let btnContinua  = { x: 0, y: 0, w: 0, h: 0 };
@@ -106,6 +108,17 @@ function preload() {
   musicaBG    = loadSound('./Suoni/sottofondo.mp3');
   musicaFlip  = loadSound('./Suoni/carte.wav');
   talpaSound  = loadSound('./Suoni/talpa.wav');
+  talpaSoundslap=loadSound('./Suoni/slap.wav');
+  musicaVittoria = loadSound('./Suoni/vittoria.mp3');
+}
+
+
+//musica schermata della vittoria 
+function musicaVit(){
+  if(musicaVittoria && musicaVittoria.isLoaded()){
+    musicaBG.pause();
+    musicaVittoria.loop();
+  }
 }
 
 // Aggiorna le dimensioni e posizioni di tutti i bottoni
@@ -517,6 +530,7 @@ function draw() {
   // SCHEMA 3: VITTORIA
   if (schema === 3) {
     background(back);
+    musicaVit();
     for (let c of coriandoli) { c.update(); c.show(); }
     fill(255); noStroke(); textAlign(CENTER, CENTER);
     textSize(ss(80));
