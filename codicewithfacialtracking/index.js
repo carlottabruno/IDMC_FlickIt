@@ -117,7 +117,7 @@ function preload() {
 function musicaVit(){
   if(musicaVittoria && musicaVittoria.isLoaded()){
     musicaBG.pause();
-    musicaVittoria.play();
+   
   }
 }
 
