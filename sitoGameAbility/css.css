@@ -1,6 +1,4 @@
-/* ==========================================================================
-   RESET + BASE
-   ========================================================================== */
+/* RESET + BASE  */
 * {
     margin: 0;
     padding: 0;
@@ -18,17 +16,13 @@ body {
     line-height: 1.6;
 }
 
-/* ==========================================================================
-   CONTAINER & GRID
-   ========================================================================== */
+/* CONTAINER & GRID */
 .container {
     width: min(92%, 1240px);
     margin-inline: auto;
 }
 
-/* ==========================================================================
-   HEADER & NAV (comune a tutte le pagine)
-   ========================================================================== */
+/* HEADER & NAV */
 .header {
     position: fixed;
     inset-block-start: 0;
@@ -106,9 +100,7 @@ body {
     color: #ff9800;
 }
 
-/* ==========================================================================
-   HERO (solo index)
-   ========================================================================== */
+/* HERO */
 .hero {
     position: relative;
     height: 100vh;
@@ -249,9 +241,7 @@ body {
     transform: scale(1.4);
 }
 
-/* ==========================================================================
-   SEZIONI COMUNI
-   ========================================================================== */
+/* SEZIONI COMUNI */
    
 main.page-main {
     padding-top: 140px; /* spazio per header fisso */
@@ -355,9 +345,7 @@ main.page-main {
     text-align: center;
 }
 
-/* ==========================================================================
-   FOOTER (comune)
-   ========================================================================== */
+/* FOOTER  */
 .footer {
     background: #1e3a8a;
     color: white;
@@ -375,9 +363,7 @@ main.page-main {
     font-weight: 600;
 }
 
-/* ==========================================================================
-   RESPONSIVE
-   ========================================================================== */
+/* RESPONSIVE */
 @media (max-width: 1024px) {
     .hero-content h1 { font-size: 7.8rem; }
     .lead           { font-size: 2.2rem; }
@@ -402,9 +388,7 @@ main.page-main {
     .slider-arrow.next { right: 12px; }
 }
 
-/* ==========================================================================
-   CONTATTI
-   ========================================================================== */
+/* CONTATTI */
 
 .contatti-section {
     padding: 10rem 0 8rem;
@@ -506,9 +490,7 @@ main.page-main {
     }
 }
 
-/* ==========================================================================
-   CONTATTI – miglioramenti per centrare meglio i contatti
-   ========================================================================== */
+/* CONTATTI – miglioramenti per centrare meglio i contatti */
 
 .team-grid {
     display: grid;
@@ -673,9 +655,7 @@ main.page-main {
     padding-bottom: 1.2rem;       /* meno spazio sotto l'ultima riga */
 }
 
-/* ==========================================================================
-   CONTATTI – nomi e ruoli in blu, etichette in arancione
-   ========================================================================== */
+/* CONTATTI – nomi e ruoli in blu, etichette in arancione */
 
 .highlight-blue {
     color: #1e40af !important;   /* stesso blu dei titoli di sezione */
@@ -699,9 +679,7 @@ main.page-main {
     text-decoration: underline;
 }
 
-/* ==========================================================================
-   PANORAMICA SCUOLA (contatti)
-   ========================================================================== */
+/* PANORAMICA SCUOLA (contatti) */
 
 .school-overview {
     max-width: 820px;
@@ -778,9 +756,7 @@ main.page-main {
     .school-timeline .year { min-width: 90px; font-size: 0.95rem; }
 }
 
-/* ==========================================================================
-   PANORAMICA SCUOLA (contatti) – testo giustificato
-   ========================================================================== */
+/*PANORAMICA SCUOLA (contatti) – testo giustificato */
 
 .school-overview {
     max-width: 820px;
@@ -869,9 +845,7 @@ main.page-main {
     .school-timeline .year { min-width: 90px; font-size: 0.95rem; }
 }
 
-/* ==========================================================================
-   PAGINA PROGETTO
-   ========================================================================== */
+/* PAGINA PROGETTO */
 
 .progetto-section {
     padding: 10rem 0 8rem;
@@ -961,9 +935,7 @@ main.page-main {
     .progetto-content  { font-size: 1.08rem; }
 }
 
-/* ==========================================================================
-   BENEFICI IN CERCHIO (pagina Progetto)
-   ========================================================================== */
+/* BENEFICI IN CERCHIO (pagina Progetto) */
 
 .benefits-circles {
     display: flex;
@@ -1055,9 +1027,7 @@ main.page-main {
     }
 }
 
-/* ==========================================================================
-   CHI SIAMO – versione dinamica
-   ========================================================================== */
+/* CHI SIAMO – versione dinamica */
 
 /* Animazioni generali */
 @keyframes fadeUp {
@@ -1286,9 +1256,7 @@ main.page-main {
     transform: scale(1.04);  /* leggero zoom al hover */
 }
 
-/* ==========================================================================
-   CHI SIAMO – versione bianca + super dinamica
-   ========================================================================== */
+/* CHI SIAMO – versione bianca + super dinamica */
 
 /* Animazioni più morbide */
 @keyframes pop {
@@ -1489,9 +1457,7 @@ main.page-main {
     .timeline-dot { margin: 0 auto; }
 }
 
-/* ==========================================================================
-   CHI SIAMO – modifiche richieste
-   ========================================================================== */
+/* CHI SIAMO – modifiche richieste */
 
 /* Titolo vicinissimo al navbar */
 .intro-header {
@@ -1792,9 +1758,7 @@ body::after {
     }
 }
 
-/* ==========================================================================
-   TIMELINE – FLICK CARDS STYLE (originale e giocosa)
-   ========================================================================== */
+/* TIMELINE – FLICK CARDS STYLE (originale e giocosa) */
 
 .project-timeline {
     max-width: 1100px;
@@ -1951,9 +1915,7 @@ body::after {
     }
 }
 
-/* ==========================================================================
-   PAGINA DESCRIZIONE SM – VIAGGIO NELLA MIELINA (originale & visivo)
-   ========================================================================== */
+/* PAGINA DESCRIZIONE SM – VIAGGIO NELLA MIELINA (originale & visivo) */
 
 .journey-wrapper {
     max-width: 960px;
@@ -2109,9 +2071,7 @@ body::after {
     }
 }
 
-/* ==========================================================================
-   PAGINA PROGETTO – VERSIONE CINEMATICA 2026 (ultra originale)
-   ========================================================================== */
+/* PAGINA PROGETTO – VERSIONE CINEMATICA 2026 (ultra originale) */
 
 /* Sfondo neurale leggero */
 .progetto-section {
@@ -2364,9 +2324,7 @@ body::after {
     text-align: center;
 }
 
-/* ==========================================================================
-   IMMAGINE SOTTO IL TITOLO GAMEABILITY (hero visual)
-   ========================================================================== */
+/* IMMAGINE SOTTO IL TITOLO GAMEABILITY (hero visual)*/
 
 .gameability-visual {
     max-width: 900px;
