@@ -2314,6 +2314,7 @@ body::after {
     inset: -50%;
     background: radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.35) 0%, transparent 60%);
     animation: glowRotate 20s linear infinite;
+    pointer-events: none; 
 }
 
 @keyframes glowRotate {
