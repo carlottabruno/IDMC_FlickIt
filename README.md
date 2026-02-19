@@ -106,7 +106,7 @@ The idea is to demonstrate how programming and interactive technologies can be u
 ### Project Website
 
 Official website: [https://carlottabruno.github.io/]
-Official Game: [https://isabelciartano.github.io/FlickIt/]
+Official Game: [https://isabelciartano.github.io/Flick_It/]
 
 ---
 
