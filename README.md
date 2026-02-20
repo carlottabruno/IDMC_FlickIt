@@ -120,7 +120,7 @@ The purpose of this video is to provide a clear demonstration of the system’s 
 
 For any questions or further information, please refer to the Contacts section above.
 
-[https://res.cloudinary.com/dqt3dxskr/video/upload/v1771588951/testuservideo_ak3fjw.mp4]
+Video reference: [https://res.cloudinary.com/dqt3dxskr/video/upload/v1771588951/testuservideo_ak3fjw.mp4]
 
 --- 
 
