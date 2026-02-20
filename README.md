@@ -109,6 +109,17 @@ Official website: [https://carlottabruno.github.io/]
 Official Game: [https://isabelciartano.github.io/Flick_It/]
 
 ---
+### Test User Video
+
+A folder named **"Test User Video"** has been created inside the project repository.
+
+This folder contains a screen recording that demonstrates the full functionality of the game in both interaction modes: hand tracking control and face tracking control. The video shows how users can interact with the Memory game and the Whack-a-Mole game using either their hand gestures or facial movements detected through the camera.
+
+The purpose of this video is to provide a clear demonstration of the system’s usability, accessibility, and real-time interaction features.
+
+For any questions or further information, please refer to the Contacts section above.
+
+--- 
 
 ### Development Team
 
