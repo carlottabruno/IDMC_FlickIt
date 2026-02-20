@@ -1,6 +1,15 @@
 # FlickIt
 ## IDCM - Identity, Determination, Mind, Community
 
+---
+
+### Project Website
+
+Official website: [https://carlottabruno.github.io/]
+Official Game: [https://isabelciartano.github.io/Flick_It/]
+
+---
+
 ## Rehabilitation Game for ALS Patients
 
 This project consists of the **creation of a rehabilitation videogame designed for people affected by ALS (Amyotrophic Lateral Sclerosis)**.
@@ -99,14 +108,6 @@ The game is now fully developed, tested, and ready to be presented and distribut
 This project has an **educational and rehabilitative** purpose.
 
 The idea is to demonstrate how programming and interactive technologies can be used to create useful tools in supporting people with motor disabilities.
-
----
-
-## Contacts
-### Project Website
-
-Official website: [https://carlottabruno.github.io/]
-Official Game: [https://isabelciartano.github.io/Flick_It/]
 
 ---
 ### Test User Video
