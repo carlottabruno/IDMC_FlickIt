@@ -108,7 +108,7 @@ function preload() {
   musicaBG    = loadSound('./Suoni/sottofondo.mp3');
   musicaFlip  = loadSound('./Suoni/carte.wav');
   talpaSound  = loadSound('./Suoni/talpa.wav');
-  talpaSoundslap=loadSound('./Suoni/slap.wav');
+  talpaSoundslap = loadSound('./Suoni/slap.wav');
   musicaVittoria = loadSound('./Suoni/vittoria.wav');
 }
 
