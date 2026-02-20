@@ -511,7 +511,7 @@ function draw() {
     textSize(ss(24));
     fill(200);
 
-    // Talpa
+    // Talpa 
     if (talpa && talpa.visibile) {
       talpa.show();
       talpa.fadeOut();

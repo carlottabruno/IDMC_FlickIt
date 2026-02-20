@@ -2,11 +2,11 @@ class Carta {
   constructor(x, y, img, val,next) {
     this.x = x;
     this.y = y;
-    this.imgShow = img;
-    this.img=img;
-    this.val = val;
+    this.imgShow = img;//imgshow variabile che mostra la carta 
+    this.img=img;//due varibili di immagine per il flip della carta 
+    this.val = val;//valore per mathcare le carte 
     this.trovata = false;
-    this.alpha = 255;       // opacità attuale
+    this.alpha = 255;       // opacità attuale per il fade 
     this.daRimuovere = false; // se deve iniziare a sparire
     this.pauseTimer = 0;  
     this.next=next ;
@@ -18,27 +18,23 @@ class Carta {
          py > this.y && py < this.y + this.imgShow.height;
 }
 
-flip() {
-
+flip() {//serve per girare la carta 
   if (musicaFlip && musicaFlip.isLoaded()) {
     musicaFlip.play();
   }
-
   if (!this.girata) {
-    this.imgShow = this.next;
+    this.imgShow = this.next;//next immagine girata 
     this.girata = true;
   } else {
     this.imgShow = this.img;
     this.girata = false;
   }
 }
-
-  fadeOut() {
+  fadeOut() {//funzione per far scoparire  
     if (this.pauseTimer > 0) {
       this.pauseTimer--; // aspetta
       return;
     }
-
     if (this.alpha > 0) {
       this.alpha -= 10; // diminuisci alpha più lentamente
       if (this.alpha < 0) this.alpha = 0;
