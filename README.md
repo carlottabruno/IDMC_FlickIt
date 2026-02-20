@@ -51,7 +51,7 @@ If the nose stays still for a total amount of time the card flips, same function
 
 ## Game: Math Memory
 
-The first game is a rehabilitative version of the classic **memory card game**.
+The first game is a rehabilitative version of the classic **memory card game** combinated with **catch the mole**.
 
 ### Description
 
@@ -88,9 +88,9 @@ This game allows training of:
 
 ## Project Status
 
-The project is **under development**.
+The project has been successfully completed.
 
-The code, features and documentation will be progressively updated during the work.
+The game is now fully developed, tested, and ready to be presented and distributed as a rehabilitative support tool designed to assist people with ALS. It is available for use and aims to provide accessible motor and cognitive training through interactive gameplay.
 
 ---
 
