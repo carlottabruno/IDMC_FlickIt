@@ -1,6 +1,15 @@
 # FlickIt
 ## IDCM - Identity, Determination, Mind, Community
 
+---
+
+### Project Website
+
+Official website: [https://carlottabruno.github.io/]
+Official Game: [https://isabelciartano.github.io/Flick_It/]
+
+---
+
 ## Rehabilitation Game for ALS Patients
 
 This project consists of the **creation of a rehabilitation videogame designed for people affected by ALS (Amyotrophic Lateral Sclerosis)**.
@@ -51,7 +60,7 @@ If the nose stays still for a total amount of time the card flips, same function
 
 ## Game: Math Memory
 
-The first game is a rehabilitative version of the classic **memory card game**.
+The first game is a rehabilitative version of the classic **memory card game** combinated with **catch the mole**.
 
 ### Description
 
@@ -88,9 +97,9 @@ This game allows training of:
 
 ## Project Status
 
-The project is **under development**.
+The project has been successfully completed.
 
-The code, features and documentation will be progressively updated during the work.
+The game is now fully developed, tested, and ready to be presented and distributed as a rehabilitative support tool designed to assist people with ALS. It is available for use and aims to provide accessible motor and cognitive training through interactive gameplay.
 
 ---
 
@@ -101,14 +110,19 @@ This project has an **educational and rehabilitative** purpose.
 The idea is to demonstrate how programming and interactive technologies can be used to create useful tools in supporting people with motor disabilities.
 
 ---
+### Test User Video
 
-## Contacts
-### Project Website
+A folder named **"Test User Video"** has been created inside the project repository.
 
-Official website: [https://carlottabruno.github.io/]
-Official Game: [https://isabelciartano.github.io/FlickIt/]
+This folder contains a screen recording that demonstrates the full functionality of the game in both interaction modes: hand tracking control and face tracking control. The video shows how users can interact with the Memory game and the Whack-a-Mole game using either their hand gestures or facial movements detected through the camera.
 
----
+The purpose of this video is to provide a clear demonstration of the system’s usability, accessibility, and real-time interaction features.
+
+For any questions or further information, please refer to the Contacts section above.
+
+Video reference: [https://res.cloudinary.com/dqt3dxskr/video/upload/v1771588951/testuservideo_ak3fjw.mp4]
+
+--- 
 
 ### Development Team
 
